@@ -5,10 +5,42 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico' %>
 </head>
 <body>
+  <div class="container">
+    <div class="header">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          <li role="presentation" <% if current_page?('/') %>class="active"<% end %>><a href="/">Home</a></li>
 
-<%= yield %>
+          <% if user_signed_in? %>
+            <li><%= link_to 'Edit Account', edit_user_registration_path, :class => 'navbar-link' %></li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
+          <% else %>
+            <li><%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %></li>
+            <li><%= link_to "Login", new_user_session_path, :class => 'navbar-link' %></li>
+          <% end %>
+        </ul>
+      </nav>
+      <h3 class="text-muted"><a href='/' style='text-decoration: none;'>ExpenseTracker</a></h3>
+    </div>
 
+    <% if notice %>
+      <p class="alert alert-success bg-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger bg-warning"><%= alert %></p>
+    <% end %>
+
+    <%= yield %>
+
+    <footer class="footer">
+      <p>© ExpenseTracker 2015</p>
+      <a href="#">About </a>
+      <a href="#">Contact </a>
+    </footer>
+
+  </div> <!-- /container -->
 </body>
 </html>

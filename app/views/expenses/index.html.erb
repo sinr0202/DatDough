@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <td>date</td>
+    <td>price</td>
+    <td>description</td>
+  </tr>
+<% @expenses.each do |e| %>
+  <tr>
+    <td><%= e.date %></td>
+    <td><%= e.price %></td>
+    <td><%= e.desciption %></td>
+  </tr>
+<% end %>
+</table>
