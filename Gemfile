@@ -43,3 +43,5 @@ end
 ## user specified
 
 gem 'bootstrap-sass'
+gem 'groupdate'
+gem "chartkick"
