@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(version: 20150211050715) do
 
   create_table "expenses", force: true do |t|
     t.date     "date"
-    t.decimal  "price",      precision: 4, scale: 2
-    t.string   "desciption"
-    t.integer  "catagory"
+    t.decimal  "amount",      precision: 6, scale: 2
+    t.string   "description"
+    t.integer  "category"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -45,5 +45,8 @@ ActiveRecord::Schema.define(version: 20150211050715) do
     t.string   "unconfirmed_email"
     t.integer  "role"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

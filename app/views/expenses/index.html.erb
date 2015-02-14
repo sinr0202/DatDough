@@ -1,14 +1,18 @@
-<table>
+<table class="table table-striped">
   <tr>
     <td>date</td>
-    <td>price</td>
+    <td>amount</td>
     <td>description</td>
+    <td>net</td>
+    <td>day net</td>
   </tr>
 <% @expenses.each do |e| %>
   <tr>
     <td><%= e.date %></td>
-    <td><%= e.price %></td>
-    <td><%= e.desciption %></td>
+    <td><%= e.amount %></td>
+    <td><%= e.description %></td>
+    <td><%= e.net %></td>
+    <td><%= e.day_net %></td>
   </tr>
 <% end %>
 </table>
