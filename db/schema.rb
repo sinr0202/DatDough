@@ -16,16 +16,22 @@ ActiveRecord::Schema.define(version: 20150211050715) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "expenses", force: true do |t|
+  create_table "expenses", force: :cascade do |t|
     t.date     "date"
-    t.decimal  "amount",      precision: 6, scale: 2
+    t.decimal  "amount",           precision: 6, scale: 2
+    t.decimal  "tax",              precision: 6, scale: 2
     t.string   "description"
     t.integer  "category"
+    t.integer  "transaction_type"
+    t.integer  "payment_method"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -46,7 +52,5 @@ ActiveRecord::Schema.define(version: 20150211050715) do
     t.integer  "role"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
+  add_foreign_key "expenses", "users"
 end
