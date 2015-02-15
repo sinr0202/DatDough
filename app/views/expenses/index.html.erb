@@ -9,8 +9,8 @@
 <% @expenses.each do |e| %>
   <tr>
     <td><%= e.date %></td>
-    <td><%= e.amount %></td>
-    <td><%= e.description %></td>
+    <td>$<%= e.amount %></td>
+    <td><%= truncate(e.description) %></td>
     <td><%= e.net %></td>
     <td><%= e.day_net %></td>
   </tr>

@@ -11,10 +11,16 @@ class ExpensesController < ApplicationController
   def create
     @expense = Expense.new(expense_params)
     if @expense.save
-      redirect_to expenses_path, notice: "new record created"
+      redirect_to dashboard_url, notice: "new record created"
     else
       render :new
     end
+  end
+
+  def destroy
+    @expense = Expense.find(params[:id])
+    @expense.destroy
+    redirect_to dashboard_url, notice: "transaction deleted"
   end
   
   private
