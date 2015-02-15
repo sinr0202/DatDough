@@ -1,4 +1,7 @@
 class Expense < ActiveRecord::Base
+
+  belongs_to :user
+
   scope :logged_before, ->(created_at) { where("created_at <= ?", created_at) }
   scope :transferred_before, ->(date) { where("date <= ?", date) }
   validates :date, :amount, :description, presence: true

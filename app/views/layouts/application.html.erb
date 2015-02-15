@@ -8,7 +8,7 @@
   <%= favicon_link_tag 'favicon.ico' %>
 </head>
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <div class="header">
       <nav>
         <ul class="nav nav-pills pull-right">
@@ -33,8 +33,10 @@
       <p class="alert alert-danger bg-warning"><%= alert %></p>
     <% end %>
 
-    <%= yield %>
-
+    <div id="layout">
+      <%= yield %>
+    </div>
+    
     <footer class="footer">
       <p>© ExpenseTracker 2015</p>
       <a href="#">About </a>
