@@ -52,5 +52,4 @@ ActiveRecord::Schema.define(version: 20150211050715) do
     t.integer  "role"
   end
 
-  add_foreign_key "expenses", "users"
 end

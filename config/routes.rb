@@ -3,17 +3,14 @@ Rails.application.routes.draw do
 
 
   authenticated :user do                   
-    get '/', to: 'users#show'
+    get '/', to: 'users#show', as: 'dashboard'
   end 
 
   root 'home#index'
-
-  get 'dashboard', to: 'users#show', as: 'dashboard'
-  get 'daily_expense_chart', to: 'charts#daily_expense'
-  get 'daily_net_chart', to: 'charts#net'
-  get 'statistics', to: 'statistics#show'
-
-  resources :expenses
+  get '/expenses/daily', to: 'expenses#daily'
+  get '/expenses/net', to: 'expenses#net'
+  
   devise_for :users
+  resources :expenses
 end
 

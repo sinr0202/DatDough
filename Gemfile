@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
 gem 'rails', '~> 4.2.0'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -44,4 +43,4 @@ end
 
 gem 'bootstrap-sass'
 gem 'groupdate'
-gem "chartkick"
+gem 'nvd3-rails'

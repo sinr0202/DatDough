@@ -12,7 +12,6 @@ class CreateExpenses < ActiveRecord::Migration
 
       t.timestamps
     end
-
     add_foreign_key :expenses, :users
   end
 end

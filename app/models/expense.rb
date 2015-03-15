@@ -1,5 +1,7 @@
 class Expense < ActiveRecord::Base
 
+  before_validation :negative
+
   belongs_to :user
 
   scope :logged_before, ->(created_at) { where("created_at <= ?", created_at) }
@@ -15,6 +17,16 @@ class Expense < ActiveRecord::Base
   
   def day_net
     Expense.transferred_before(date).sum(:amount)
+  end
+
+  private  
+
+  def negative
+    if self.transaction_type == "income"
+      self.amount = self.amount.abs
+    else
+      self.amount = -1 * self.amount.abs
+    end
   end
 end
 
