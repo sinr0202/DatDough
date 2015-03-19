@@ -1,70 +1,68 @@
-nv.addGraph(function() {
-  var daily; 
-  var net;
+$(document).ready(function(){
+  nv.addGraph(function() {
+    var daily; 
+    var net;
 
-  $.ajax({
-    url: '/expenses/daily',
-    dataType: 'json',
-    async: false,
-    success: function(data){daily = data}
-  })
-  $.ajax({
-    url: '/expenses/net',
-    dataType: 'json',
-    async: false,
-    success: function(data){net = data}
-  })
+    $.ajax({
+      url: '/expenses/daily',
+      dataType: 'json',
+      async: false,
+      success: function(data){daily = data}
+    })
+    $.ajax({
+      url: '/expenses/net',
+      dataType: 'json',
+      async: false,
+      success: function(data){net = data}
+    })
 
-  graph_arr = [
-    {
-      "key" : "Daily",
-      "bar": true,
-      "values" : daily   
-    },
-    {
-      "key" : "Net",
-      "values" : net
-    }
-  ];
-  console.log(daily);
-  console.log(net);
-
-
-  var chart = nv.models.linePlusBarChart()
-    .margin({top: 30, right: 60, bottom: 50, left: 70})
-    .x(function(d,i) { return i })
-    .y(function(d) { return d[1] })
-    .color(d3.scale.category10().range())
-    ;
-
-  chart.xAxis
-    .showMaxMin(false)
-    .tickFormat(function(d) {
-      var dx = graph_arr[0].values[d] && graph_arr[0].values[d][0] || 0;
-      return d3.time.format('%x')(new Date(dx*1000))
-    });
-
-  chart.y1Axis
-    .tickFormat(function(d) { return '$' + d3.format(',f')(d) });
-
-  chart.y2Axis
-    .tickFormat(function(d) { return '$' + d3.format(',f')(d) });
-
-  chart.bars.forceY([0]);
-
-  d3.select('#chart svg')
-    .datum(graph_arr)
-    .transition().duration(500)
-    .call(chart)
-    ;
-
-  nv.utils.windowResize(chart.update);
-
-  return chart;
-});
+    graph_arr = [
+      {
+        "key" : "Daily",
+        "bar": true,
+        "values" : daily   
+      },
+      {
+        "key" : "Net",
+        "values" : net
+      }
+    ];
+    console.log(daily);
+    console.log(net);
 
 
+    var chart = nv.models.linePlusBarChart()
+      .margin({top: 30, right: 60, bottom: 50, left: 70})
+      .x(function(d,i) { return i })
+      .y(function(d) { return d[1] })
+      .color(d3.scale.category10().range())
+      ;
 
+    chart.xAxis
+      .showMaxMin(false)
+      .tickFormat(function(d) {
+        var dx = graph_arr[0].values[d] && graph_arr[0].values[d][0] || 0;
+        return d3.time.format('%x')(new Date(dx*1000))
+      });
+
+    chart.y1Axis
+      .tickFormat(function(d) { return '$' + d3.format(',f')(d) });
+
+    chart.y2Axis
+      .tickFormat(function(d) { return '$' + d3.format(',f')(d) });
+
+    chart.bars.forceY([0]);
+
+    d3.select('#chart svg')
+      .datum(graph_arr)
+      .transition().duration(500)
+      .call(chart)
+      ;
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
 
 data = [
   {
@@ -78,4 +76,4 @@ data = [
   }
 ]
 
-
+});

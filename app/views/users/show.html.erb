@@ -16,24 +16,24 @@
   </colgroup>
 
   <tr class="title" >
-    <th style="text-align:right;">date</th>
-    <th style="text-align:right;">amount</th>
-    <th>category</th>
-    <th>description</th>
-    <th>transaction type</th>
-    <th>payment method</th>
-    <th></th>
+    <th style="text-align:center;">Date</th>
+    <th style="text-align:right;">Amount</th>
+    <th class="hidden-xs">Category</th>
+    <th>Description</th>
+    <th class="hidden-xs">Transaction type</th>
+    <th class="hidden-xs">Payment method</th>
+    <th style="text-align:center;">Delete</th>
   </tr>
 
   <% @expenses.each do |e| %>
     <tr data-toggle="popover" data-placement="top" title="Description" data-content="<%= e.description %>">
-      <td align="right"><%= e.date %></td>
+      <td align="center"><%= e.date.strftime("%b/%e") %></td>
       <td align="right"><%= number_to_currency(e.amount) %></td>
-      <td><%= e.category %></td>
-      <td><%= truncate(e.description) %></td>
-      <td><%= e.transaction_type %></td>
-      <td><%= e.payment_method %></td>
-      <td><%= link_to expense_path(e), method: :delete do %><span class="glyphicon glyphicon-remove"></span><% end %></td>
+      <td class="hidden-xs"><%= e.category %></td>
+      <td ><%= truncate(e.description, length: 20) %></td>
+      <td class="hidden-xs"><%= e.transaction_type %></td>
+      <td class="hidden-xs"><%= e.payment_method %></td>
+      <td align="center"><%= link_to expense_path(e), method: :delete do %><span class="glyphicon glyphicon-remove"></span><% end %></td>
     </tr>
   <% end %>
 </table>

@@ -34,12 +34,12 @@ class ExpensesController < ApplicationController
     # end
     # chart_hash = Hash[*daily_balance_array]
     
-    daily_expenses_hash = Expense.group(:date).order(date: :asc).sum(:amount)
+    daily_expenses_hash = Expense.where(user: current_user).group(:date).order(date: :asc).sum(:amount)
     render json: dailify(daily_expenses_hash), status: :ok
   end
   
   def net
-    daily_hash = Expense.group(:date).order(date: :asc).sum(:amount)
+    daily_hash = Expense.where(user: current_user).group(:date).order(date: :asc).sum(:amount)
     daily_arr = dailify(daily_hash)
     result_arr = []
     daily_arr.inject(0) do |sum, n|
