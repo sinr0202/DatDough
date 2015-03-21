@@ -2,7 +2,11 @@ class ExpensesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_expense, only: [:edit, :update, :delete]
   def index
-    @expenses = Expense.all
+    @expenses = Expense.where(user: current_user).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def new
@@ -11,6 +15,7 @@ class ExpensesController < ApplicationController
   
   def create
     @expense = Expense.new(expense_params)
+    @expense.user = current_user
     if @expense.save
       redirect_to dashboard_url, notice: "new record created"
     else

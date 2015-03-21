@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
 
   authenticated :user do                   
-    get '/', to: 'users#show', as: 'dashboard'
+    get '/', to: 'expenses#index', as: 'dashboard'
   end 
 
   root 'home#index'

@@ -44,3 +44,5 @@ end
 gem 'bootstrap-sass'
 gem 'groupdate'
 gem 'nvd3-rails'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
