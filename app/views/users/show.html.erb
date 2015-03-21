@@ -8,7 +8,7 @@
   <svg></svg>
 </div>
 
-<%= link_to "Add new expense transaction", new_expense_path, class: "btn btn-success btn-lg btn-block", style: "margin-bottom: 20px;" %>
+<%= link_to "Add transaction", new_expense_path, class: "btn btn-success btn-lg btn-block", style: "margin-bottom: 20px;" %>
 
 <table class="table table-striped">
   <colgroup>
@@ -33,7 +33,7 @@
       <td ><%= truncate(e.description, length: 20) %></td>
       <td class="hidden-xs"><%= e.transaction_type %></td>
       <td class="hidden-xs"><%= e.payment_method %></td>
-      <td align="center"><%= link_to expense_path(e), method: :delete do %><span class="glyphicon glyphicon-remove"></span><% end %></td>
+      <td align="center"><%= link_to expense_path(e), method: :delete, data: { confirm: "Are you sure?"} do %><span class="glyphicon glyphicon-remove"></span><% end %></td>
     </tr>
   <% end %>
 </table>
