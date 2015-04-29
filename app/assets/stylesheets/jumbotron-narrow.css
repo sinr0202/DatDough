@@ -77,3 +77,45 @@ body {
     border-bottom: 0;
   }
 }
+
+
+
+
+
+
+
+
+
+tr:hover td { 
+  background-color:#ADD8E6
+}
+
+#chart svg {
+  height: 400px;
+}
+
+#infinite-scrolling  {
+  width: 50%;
+  margin: 0 auto;
+}
+
+#dummy {
+  /* forces 1:1 aspect ratio */
+  padding-top: 80px;
+}
+
+#ajax-loading{
+  display: none;
+  position: relative;
+  width: 100%;
+}
+
+#img-container{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /*Align center inline elements */
+  text-align:center;  
+}
