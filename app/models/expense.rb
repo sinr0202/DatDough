@@ -8,7 +8,7 @@ class Expense < ActiveRecord::Base
   scope :transferred_before, ->(date) { where("date <= ?", date) }
   validates :date, :amount, :description, presence: true
   #reduce category
-  enum category: [:work, :sales, :rebate, :groceries, :dining, :necessities, :leisure]
+  enum category: [:work, :sales, :rebate, :other_income, :groceries, :dining, :living, :leisure, :electronics, :health, :fashion, :education, :service, :donation, :transportation]
   enum payment_method: [:cash, :debit, :credit, :cryptocoin, :cheque]
   enum transaction_type: [:income, :expense]
 
@@ -23,7 +23,7 @@ class Expense < ActiveRecord::Base
   private  
 
   def set_type
-    income = [:work, :sales, :rebate]    
+    income = ["work", "sales", "rebate", "other_income"]
     if income.include? self.category
       self.transaction_type = "income"
       self.amount = self.amount.abs
