@@ -1,5 +1,12 @@
 $(document).on('ready page:load', ->
 
+  $('[data-toggle="popover"]').popover()
+  $('body').on('click', (e) =>
+    $('[data-toggle="popover"]').each =>
+      if (!$(this).is(e.target) && $(this).has(e.target).length == 0 && $('.popover').has(e.target).length == 0)
+        $(this).popover('hide');
+  )
+
   daily = net = 0
   nv.addGraph( ->
     $.ajax({

@@ -24,9 +24,15 @@
           <% end %>
         </ul>
       </nav>
-      <h3 class="text-muted"><a href='/' style='text-decoration: none;'>ExpenseTracker</a></h3>
+      <h3 class="text-muted"><a href='/' style='text-decoration: none;'>DatDough</a></h3>
     </div>
+  </div>
 
+  <% if controller_name == 'expenses' %>
+    <div class="container-fluid">
+  <% else %>
+    <div class="container">
+  <% end  %>
     <% if notice %>
       <p class="alert alert-success bg-success"><%= notice %></p>
     <% end %>
@@ -34,15 +40,18 @@
       <p class="alert alert-danger bg-warning"><%= alert %></p>
     <% end %>
 
-    <div id="layout">
-      <%= yield %>
+      <div id="layout">
+        <%= yield %>
+      </div>
     </div>
-    
+
     <footer class="footer">
-      <p>© ExpenseTracker 2015</p>
-      <a href="/about">About </a>&nbsp;
-      <a href="/contact">Contact </a>&nbsp;
-      <a href="/donation">Donation </a>
+      <div class="container">
+        <p>© DatDough 2015</p>
+        <%= link_to 'About', about_path, target: "_self" %>&nbsp;
+        <%= link_to 'Contact', contact_path, target: "_self" %>&nbsp;
+        <%= link_to 'Donation', donation_path, target: "_self" %>
+      </div>
     </footer>
 
   </div> <!-- /container -->
