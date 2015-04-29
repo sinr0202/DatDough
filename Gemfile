@@ -47,3 +47,4 @@ gem 'groupdate'
 gem 'nvd3-rails'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'rails_12factor', group: :production
