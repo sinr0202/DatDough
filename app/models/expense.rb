@@ -1,15 +1,16 @@
 class Expense < ActiveRecord::Base
 
-  before_validation :negative
+  before_validation :set_type
 
   belongs_to :user
 
   scope :logged_before, ->(created_at) { where("created_at <= ?", created_at) }
   scope :transferred_before, ->(date) { where("date <= ?", date) }
   validates :date, :amount, :description, presence: true
-  enum category: [:grocery, :restaurant, :work, :education, :eletronic, :fashion, :financial, :health, :household, :leisure, :rebate, :transportation, :others]
+  #reduce category
+  enum category: [:work, :sales, :rebate, :groceries, :dining, :necessities, :leisure]
   enum payment_method: [:cash, :debit, :credit, :cryptocoin, :cheque]
-  enum transaction_type: [:expense, :income, :gift, :donation]
+  enum transaction_type: [:income, :expense]
 
   def net
     Expense.logged_before(created_at).sum(:amount)
@@ -21,10 +22,13 @@ class Expense < ActiveRecord::Base
 
   private  
 
-  def negative
-    if self.transaction_type == "income"
+  def set_type
+    income = [:work, :sales, :rebate]    
+    if income.include? self.category
+      self.transaction_type = "income"
       self.amount = self.amount.abs
     else
+      self.transaction_type = "expense"
       self.amount = -1 * self.amount.abs
     end
   end

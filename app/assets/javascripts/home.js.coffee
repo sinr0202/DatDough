@@ -1,4 +1,4 @@
-$(document).ready( ->
+$(document).on('ready page:load', ->
 
   daily = net = 0
   nv.addGraph( ->

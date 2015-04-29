@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Import Data</h2>
+
+  <%= form_tag import_csv_path, multipart: true do %>
+    <div class="field form-group">
+      <%= label_tag :CSV %>
+      <%= file_field_tag :file, class: "form-control" %>
+    </div>
+
+    <div class="actions form-group">
+      <%= submit_tag "Import", class: "btn btn-default" %>
+    </div>
+  <% end %>
+</div>

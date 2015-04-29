@@ -13,11 +13,11 @@
     <div class="header">
       <nav>
         <ul class="nav nav-pills pull-right">
-          <li role="presentation" <% if current_page?('/') %>class="active"<% end %>><a href="/">Home</a></li>
-
+          <li role="presentation" <% if current_page?(root_path) %>class="active"<% end %>><a href="/">Home</a></li>
           <% if user_signed_in? %>
-            <li><%= link_to 'Edit Account', edit_user_registration_path, :class => 'navbar-link' %></li>
-            <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
+            <li class="hidden-xs <% if current_page?(import_path) %>active<% end %>" ><%= link_to 'Import', import_path, class: 'navbar-link' %></li>
+            <li <% if current_page?(edit_user_registration_path) %>class="active"<% end %>><%= link_to 'Edit Account', edit_user_registration_path, class: 'navbar-link' %></li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'navbar-link' %></li>
           <% else %>
             <li><%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %></li>
             <li><%= link_to "Login", new_user_session_path, :class => 'navbar-link' %></li>
@@ -40,8 +40,9 @@
     
     <footer class="footer">
       <p>© ExpenseTracker 2015</p>
-      <a href="#">About </a>
-      <a href="#">Contact </a>
+      <a href="/about">About </a>&nbsp;
+      <a href="/contact">Contact </a>&nbsp;
+      <a href="/donation">Donation </a>
     </footer>
 
   </div> <!-- /container -->

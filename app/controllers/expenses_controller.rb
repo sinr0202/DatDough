@@ -1,6 +1,7 @@
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_expense, only: [:edit, :update, :delete]
+  
   def index
     @expenses = Expense.where(user: current_user).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
     respond_to do |format|
