@@ -1,16 +1,19 @@
-tr:hover td { background-color:#ADD8E6 }
+tr:hover td { 
+  background-color:#ADD8E6
+}
 
 #chart svg {
   height: 400px;
 }
 
 #infinite-scrolling  {
-    width: 50%;
-    margin: 0 auto;
+  width: 50%;
+  margin: 0 auto;
 }
 
 #dummy {
-    padding-top: 80px; /* forces 1:1 aspect ratio */
+  /* forces 1:1 aspect ratio */
+  padding-top: 80px;
 }
 
 #ajax-loading{
@@ -25,5 +28,6 @@ tr:hover td { background-color:#ADD8E6 }
   bottom: 0;
   left: 0;
   right: 0;
-  text-align:center; /* Align center inline elements */
+  /*Align center inline elements */
+  text-align:center;  
 }

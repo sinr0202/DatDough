@@ -16,4 +16,3 @@
 //= require turbolinks
 //= require nvd3-rails
 //= require_tree .
-

@@ -31,3 +31,35 @@
 <div class="hidden-xs" id="infinite-scrolling">
   <%= will_paginate %>
 </div>
+<style>
+tr:hover td { background-color:#ADD8E6 }
+
+#chart svg {
+  height: 400px;
+}
+
+#infinite-scrolling  {
+    width: 50%;
+    margin: 0 auto;
+}
+
+#dummy {
+    padding-top: 80px; /* forces 1:1 aspect ratio */
+}
+
+#ajax-loading{
+  /*display: none;*/
+  position: relative;
+  width: 100%;
+}
+
+#img-container{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align:center;  /*Align center inline elements */
+  /*display:inline;*/
+}
+</style>
