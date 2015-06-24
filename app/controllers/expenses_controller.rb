@@ -3,13 +3,13 @@ class ExpensesController < ApplicationController
   
   def index
     if params[:start_date].nil? && params[:end_date].nil?
-      @expenses = Expense.where(user: current_user).order(date: :desc, created_at: :desc).paginate(page: params[:page], per_page: 30)
+      @expenses = Expense.where(user: current_user).paginate(page: params[:page], per_page: 30).order(date: :desc)
     elsif params[:start_date] && params[:end_date].nil?
-      @expenses = Expense.where(user: current_user).transferred_after(params[:start_date]).order(date: :desc, created_at: :desc).paginate(page: params[:page], per_page: 30)
+      @expenses = Expense.where(user: current_user).transferred_after(params[:start_date]).paginate(page: params[:page], per_page: 30).order(date: :desc)
     elsif params[:start_date].nil? && params[:end_date]
-      @expenses = Expense.where(user: current_user).transferred_before(params[:end_date]).order(date: :desc, created_at: :desc).paginate(page: params[:page], per_page: 30)
+      @expenses = Expense.where(user: current_user).transferred_before(params[:end_date]).paginate(page: params[:page], per_page: 30).order(date: :desc)
     else
-      @expenses = Expense.where(user: current_user).transferred_after(params[:start_date]).transferred_before(params[:end_date]).order(date: :desc, created_at: :desc).paginate(page: params[:page], per_page: 30)
+      @expenses = Expense.where(user: current_user).transferred_after(params[:start_date]).transferred_before(params[:end_date]).paginate(page: params[:page], per_page: 30).order(date: :desc)
     end
     respond_to do |format|
       format.html
