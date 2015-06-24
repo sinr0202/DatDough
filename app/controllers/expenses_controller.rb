@@ -103,6 +103,9 @@ class ExpensesController < ApplicationController
     daily_expenses_arr = daily_hash.to_a
     min_date = daily_expenses_arr.first[0]
     max_date = daily_expenses_arr.last[0]
+    puts "====================================="
+    puts min_date
+    puts max_date
     # total_days = (max_date - min_date).to_i + 1
     result_arr = []
     (min_date..max_date).each do |day|
