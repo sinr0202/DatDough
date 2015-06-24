@@ -6,6 +6,7 @@
     <td ><%= truncate(e.description, length: 20) %></td>
     <td class="hidden-xs"><%= e.transaction_type %></td>
     <td class="hidden-xs"><%= e.payment_method %></td>
+    <td align="center"><%= link_to edit_expense_path(e) do %><span class="glyphicon glyphicon-edit"></span><% end %></td>
     <td align="center"><%= link_to expense_path(e), method: :delete, data: { confirm: "Are you sure?"} do %><span class="glyphicon glyphicon-remove"></span><% end %></td>
   </tr>
 <% end %>

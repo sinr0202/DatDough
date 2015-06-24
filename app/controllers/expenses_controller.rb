@@ -1,6 +1,5 @@
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_expense, only: [:edit, :update, :delete]
   
   def index
     @expenses = Expense.where(user: current_user).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
@@ -21,6 +20,19 @@ class ExpensesController < ApplicationController
       redirect_to dashboard_url, notice: "new record created"
     else
       render :new
+    end
+  end
+  
+  def edit
+    @expense = Expense.find(params[:id])
+  end
+  
+  def update
+    @expense = Expense.find(params[:id])
+    if @expense.update(expense_params)
+      redirect_to dashboard_url, notice: "record edited"
+    else
+      render :edit
     end
   end
 
