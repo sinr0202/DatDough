@@ -4,9 +4,9 @@ class ExpensesController < ApplicationController
   def index
     if params[:start_date].nil? && params[:end_date].nil?
       @expenses = Expense.where(user: current_user).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
-    elsif params[:start_date] && params[:end_date].nil?
+    elsif !params[:start_date].empty? && params[:end_date].empty?
       @expenses = Expense.where(user: current_user).transferred_after(params[:start_date]).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
-    elsif params[:start_date].nil? && params[:end_date]
+    elsif params[:start_date].empty? && !params[:end_date].empty?
       @expenses = Expense.where(user: current_user).transferred_before(params[:end_date]).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
     else
       @expenses = Expense.where(user: current_user).transferred_after(params[:start_date]).transferred_before(params[:end_date]).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
@@ -61,9 +61,9 @@ class ExpensesController < ApplicationController
     # chart_hash = Hash[*daily_balance_array]
     if params[:start_date].nil? && params[:end_date].nil?
       daily_expenses_hash = Expense.where(user: current_user).group(:date).order(date: :asc).sum(:amount)
-    elsif params[:start_date] && params[:end_date].nil?
+    elsif !params[:start_date].empty? && params[:end_date].empty?
       daily_expenses_hash = Expense.where(user: current_user).transferred_after(params[:start_date]).group(:date).order(date: :asc).sum(:amount)
-    elsif params[:start_date].nil? && params[:end_date]
+    elsif params[:start_date].empty? && !params[:end_date].empty?
       daily_expenses_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).group(:date).order(date: :asc).sum(:amount)
     else
       daily_expenses_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).transferred_after(params[:start_date]).group(:date).order(date: :asc).sum(:amount)
@@ -75,9 +75,9 @@ class ExpensesController < ApplicationController
   def net
     if params[:start_date].nil? && params[:end_date].nil?
       daily_hash = Expense.where(user: current_user).group(:date).order(date: :asc).sum(:amount)
-    elsif params[:start_date] && params[:end_date].nil?
+    elsif !params[:start_date].empty? && params[:end_date].empty?
       daily_hash = Expense.where(user: current_user).transferred_after(params[:start_date]).group(:date).order(date: :asc).sum(:amount)
-    elsif params[:start_date].nil? && params[:end_date]
+    elsif params[:start_date].empty? && !params[:end_date].empty?
       daily_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).group(:date).order(date: :asc).sum(:amount)
     else
       daily_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).transferred_after(params[:start_date]).group(:date).order(date: :asc).sum(:amount)
