@@ -107,9 +107,9 @@ class ExpensesController < ApplicationController
     result_arr = []
     (min_date..max_date).each do |day|
       if daily_hash.key?(day)
-        result_arr << [day.to_time.to_i, daily_hash[day].to_f]
+        result_arr << [day.to_time.to_i(:utc), daily_hash[day].to_f]
       else
-        result_arr << [day.to_time.to_i, 0]
+        result_arr << [day.to_time.to_i(:utc), 0]
       end
     end
     result_arr
