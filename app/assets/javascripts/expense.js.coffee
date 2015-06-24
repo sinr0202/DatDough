@@ -62,7 +62,7 @@ $(document).on('ready page:load', ->
       .showMaxMin(false)
       .tickFormat((d) ->
         dx = graph_arr[0].values[d] && graph_arr[0].values[d][0] || 0
-        d3.time.format('%x')(new Date(dx*1000))
+        d3.time.format('%x')(new Date(dx))
       )
 
     chart.y1Axis
