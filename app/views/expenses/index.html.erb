@@ -1,6 +1,11 @@
 <div id="chart">
   <svg></svg>
 </div>
+<%= form_tag '/expenses', method: :get do%>
+  <%= date_field_tag 'start_date' %>
+  <%= date_field_tag 'end_date' %>
+  <%= submit_tag "update" %>
+<% end %>
 
 <%= link_to "Add transaction", new_expense_path, class: "btn btn-success btn-lg btn-block", style: "margin-bottom: 20px;" %>
 

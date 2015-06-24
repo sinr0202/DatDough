@@ -2,7 +2,15 @@ class ExpensesController < ApplicationController
   before_action :authenticate_user!
   
   def index
-    @expenses = Expense.where(user: current_user).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
+    if params[:start_date].nil? && params[:end_date].nil?
+      @expenses = Expense.where(user: current_user).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
+    elsif params[:start_date] && params[:end_date].nil?
+      @expenses = Expense.where(user: current_user).transferred_after(params[:start_date]).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
+    elsif params[:start_date].nil? && params[:end_date]
+      @expenses = Expense.where(user: current_user).transferred_before(params[:end_date]).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
+    else
+      @expenses = Expense.where(user: current_user).transferred_after(params[:start_date]).transferred_before(params[:end_date]).paginate(page: params[:page], per_page: 30).order(date: :desc, created_at: :desc)
+    end
     respond_to do |format|
       format.html
       format.js
@@ -51,13 +59,30 @@ class ExpensesController < ApplicationController
     #   daily_balance_array << data[0] << total_amount
     # end
     # chart_hash = Hash[*daily_balance_array]
-    
-    daily_expenses_hash = Expense.where(user: current_user).group(:date).order(date: :asc).sum(:amount)
+    if params[:start_date].nil? && params[:end_date].nil?
+      daily_expenses_hash = Expense.where(user: current_user).group(:date).order(date: :asc).sum(:amount)
+    elsif params[:start_date] && params[:end_date].nil?
+      daily_expenses_hash = Expense.where(user: current_user).transferred_after(params[:start_date]).group(:date).order(date: :asc).sum(:amount)
+    elsif params[:start_date].nil? && params[:end_date]
+      daily_expenses_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).group(:date).order(date: :asc).sum(:amount)
+    else
+      daily_expenses_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).transferred_after(params[:start_date]).group(:date).order(date: :asc).sum(:amount)
+    end
+      
     render json: dailify(daily_expenses_hash), status: :ok
   end
   
   def net
-    daily_hash = Expense.where(user: current_user).group(:date).order(date: :asc).sum(:amount)
+    if params[:start_date].nil? && params[:end_date].nil?
+      daily_hash = Expense.where(user: current_user).group(:date).order(date: :asc).sum(:amount)
+    elsif params[:start_date] && params[:end_date].nil?
+      daily_hash = Expense.where(user: current_user).transferred_after(params[:start_date]).group(:date).order(date: :asc).sum(:amount)
+    elsif params[:start_date].nil? && params[:end_date]
+      daily_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).group(:date).order(date: :asc).sum(:amount)
+    else
+      daily_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).transferred_after(params[:start_date]).group(:date).order(date: :asc).sum(:amount)
+    end
+
     daily_arr = dailify(daily_hash)
     result_arr = []
     daily_arr.inject(0) do |sum, n|

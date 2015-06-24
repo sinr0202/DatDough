@@ -8,9 +8,21 @@ $(document).on('ready page:load', ->
   )
 
   daily = net = 0
+  
+  QueryString = ->
+    query_string = "?";
+    query = window.location.search.substring(1);
+    vars = query.split("&");
+    for v in vars
+      pair = v.split("=");
+      if pair[0] in ["start_date", "end_date"]
+        query_string = query_string + pair[0] + "=" + pair[1] + "&"
+    return query_string
+  
   nv.addGraph( ->
+    query = QueryString()
     $.ajax({
-      url: '/expenses/daily',
+      url: '/expenses/daily' + query,
       dataType: 'json',
       async: false,
       success: (data) ->
@@ -19,7 +31,7 @@ $(document).on('ready page:load', ->
     })
 
     $.ajax({
-      url: '/expenses/net',
+      url: '/expenses/net' + query,
       dataType: 'json',
       async: false,
       success: (data) ->
