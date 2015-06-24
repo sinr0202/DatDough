@@ -2,6 +2,7 @@
 $('#ajax-loading').hide()
 $('#transactions').append('<%= j render partial: "expenses", object: @expenses %>');
 <% if @expenses.next_page %>
+  console.log('<%= @expenses.next_page %>')
   $('.pagination').show().replaceWith('<%= j will_paginate @expenses %>');
 <% else %>
   $(window).off('scroll');
