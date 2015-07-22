@@ -21,7 +21,6 @@ $(document).on('ready page:load', ->
   
   nv.addGraph( ->
     query = QueryString()
-    console.log query
     $.ajax({
       url: '/expenses/daily' + query,
       dataType: 'json',

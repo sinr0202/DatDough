@@ -8,4 +8,7 @@
 # user = CreateAdminService.new.call
 # puts 'CREATED ADMIN USER: ' << user.email
 
-FactoryGirl.create(:user)
+user = FactoryGirl.create(:user)
+1000.times do
+  FactoryGirl.create(:expense, user: user)
+end

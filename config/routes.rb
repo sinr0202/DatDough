@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
 
-
-
   authenticated :user do                   
-    get '/', to: 'expenses#index', as: 'dashboard'
+    get '/', to: 'expenses#dashboard', as: 'dashboard'
+    get '/expenses', to: 'expenses#index'
     get '/expenses/daily', to: 'expenses#daily'
     get '/expenses/net', to: 'expenses#net'
     get '/import', to: 'import#new', as: 'import'

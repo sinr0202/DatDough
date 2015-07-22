@@ -8,7 +8,7 @@ class Expense < ActiveRecord::Base
   scope :transferred_before, ->(date) { where("date <= ?", date) }
   scope :transferred_after, ->(date) { where("date >= ?", date) }
   
-  validates :date, :amount, :description, presence: true
+  validates :user, :date, :amount, :description, presence: true
   #reduce category
   enum category: [:work, :sales, :rebate, :other_income, :groceries, :dining, :living, :leisure, :electronics, :health, :fashion, :education, :service, :donation, :transportation, :automobile, :parking]
   enum payment_method: [:cash, :debit, :credit, :cryptocoin, :cheque]
@@ -34,6 +34,4 @@ class Expense < ActiveRecord::Base
       self.amount = -1 * self.amount.abs
     end
   end
-end
-
-  
+end 

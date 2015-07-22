@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
 gem 'rails', '~> 4.2.0'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -42,9 +41,15 @@ group :test do
 end
 
 ## user specified
-
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.3.4.1'
+gem 'angularjs-rails'
+gem 'angularjs-rails-resource'
+gem 'responders', '~> 2.0'
+gem 'ng-rails-csrf'
 gem 'groupdate'
 gem 'nvd3-rails'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+source "https://rails-assets.org" do
+  gem "rails-assets-angular-devise"
+end
