@@ -1,9 +1,17 @@
 <div class="container">
   <h2>Import Data</h2>
+  <label>Required Format</label>
+  <pre>date,description,amount
+2014-09-30,ebay,-7.4
+...
+2015-04-26,rent,-365
+2015-04-27,subway,-11.8
+2015-04-27,chinese food,-15
+2015-04-28,second cup,-2.9</pre>
 
   <%= form_tag import_csv_path, multipart: true do %>
     <div class="field form-group">
-      <%= label_tag :CSV %>
+      <label>CSV</label>
       <%= file_field_tag :file, class: "form-control" %>
     </div>
 

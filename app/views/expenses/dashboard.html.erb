@@ -1,30 +1,38 @@
 <div ng-controller="ExpenseCtrl">
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#transaction" ng-click="new()">
-  Add Transaction
-</button>
+<!-- Chart -->
+<div id="chart">
+  <svg></svg>
+</div>
 
-<!-- Transaction Modal -->
-<!-- <div class="modal fade" id="addTransaction" tabindex="-1" role="dialog" aria-labelledby="addTransactionLabel">
+<!-- Buttons -->
+<div class="btn-group btn-group-justified">
+  <a class="btn btn-default btn-lg" data-toggle="modal" data-target="#date" ><span class="glyphicon glyphicon-time"></span></a>
+  <a class="btn btn-success btn-lg" style="width:20%" data-toggle="modal" data-target="#transaction" ng-click="new()">Add Transaction</a>
+</div>
+
+<!-- Date Range Modal -->
+<div class="modal fade" id="date" tabindex="-1" role="dialog" aria-labelledby="dateLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="addTransactionLabel">Add Transaction</h4>
+        <h4 class="modal-title" id="dateLabel">Date Range</h4>
       </div>
       <div class="modal-body">
-        ...
+        <%= label_tag "start date" %>
+        <%= date_field_tag 'start_date', nil, class: "form-control", data: {'ng-model' => 'startDate', 'ng-change' => 'updateExpense()'} %>
+        <%= label_tag "end date" %>
+        <%= date_field_tag 'end_date', nil, class: "form-control", data: {'ng-model' => 'endDate', 'ng-change' => 'updateExpense()'} %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Return</button>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
-<!-- Edit Modal -->
+<!-- Transaction Modal -->
 <div class="modal fade" id="transaction" tabindex="-1" role="dialog" aria-labelledby="transactionLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -33,41 +41,41 @@
         <h4 class="modal-title" id="transactionLabel" ng-show="editing">Edit Transaction</h4>
         <h4 class="modal-title" id="transactionLabel" ng-hide="editing">New Transaction</h4>
       </div>
-      <form name="expense-form" ng-submit="save()">
+      <!-- <form name="expense-form" ng-submit="save()"> -->
         <div class="modal-body">
-          {{expense}}
-            <div class="form-group">
-              <%= label_tag :date %>
-              <%= date_field_tag :date, nil, class: "form-control", data: {'ng-model' => 'expense.date'} %>
-            </div>
-            <div class="form-group">
-              <%= label_tag :amount %>
-              <%= number_field_tag :amount, nil, step: 0.01, class: "form-control", placeholder: '9.99', data: {'ng-model' => 'expense.amount'} %>
-            </div>
-            <div class="form-group">
-              <%= label_tag :category %>
-              <%= select_tag :category, options_for_select(Expense.categories.keys.to_a), {class: "form-control", data: {'ng-model' => 'expense.category'}} %>
-            </div>
-            <div class="form-group">
-              <%= label_tag :payment_method %>
-              <%= select_tag :payment_method, options_for_select(Expense.payment_methods.keys.to_a), {class: "form-control", data: {'ng-model' => 'expense.payment_method'}}%>
-            </div>
-
-            <div class="form-group">
-              <%= label_tag :description %>
-              <%= text_area_tag :description, nil, row: 3, class: "form-control", placeholder: 'dinner at chens', data: {'ng-model' => 'expense.description'}%>
-            </div>
+          <div class="form-group">
+            <%= label_tag :date %>
+            <%= date_field_tag :date, nil, class: "form-control", data: {'ng-model' => 'expense.date'} %>
           </div>
+          <div class="form-group">
+            <%= label_tag :amount %>
+            <%= number_field_tag :amount, nil, step: 0.01, class: "form-control", placeholder: '9.99', data: {'ng-model' => 'expense.amount'} %>
+          </div>
+          <div class="form-group">
+            <%= label_tag :category %>
+            <%= select_tag :category, options_for_select(Expense.categories.keys.to_a), {class: "form-control", data: {'ng-model' => 'expense.category'}} %>
+          </div>
+          <div class="form-group">
+            <%= label_tag :payment_method %>
+            <%= select_tag :payment_method, options_for_select(Expense.payment_methods.keys.to_a), {class: "form-control", data: {'ng-model' => 'expense.payment_method'}}%>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :description %>
+            <%= text_area_tag :description, nil, row: 3, class: "form-control", placeholder: 'dinner at chens', data: {'ng-model' => 'expense.description'}%>
+          </div>
+        </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="delete()" ng-show="editing!==false">Delete</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="delete(expense)" ng-show="editing!==false">Delete</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save()">{{status()}}</button>
         </div>
-      </form>
+      <!-- </form> -->
     </div>
   </div>
 </div>
 
+<!-- Data Table -->
 <table class="table table-striped">
   <thead>
     <tr class="title" >
@@ -81,15 +89,24 @@
     </tr>
   </thead>
   <tbody id="transactions">
-    <tr data-toggle="popover" data-placement="top" title="Description" data-content="placeholder" ng-repeat="expense in expenses | orderBy: ['date','created_at']:true">
-    <td align="center">{{expense.date | date: 'MMM/d'}}</td>
-    <td align="right">{{expense.amount | currency}}</td>
-    <td class="hidden-xs">{{expense.category}}</td>
-    <td>{{expense.description | limitTo: 15 }}</td>
-    <td class="hidden-xs">{{expense.transaction_type}}</td>
-    <td class="hidden-xs">{{expense.payment_method}}</td>
-    <td align="center"><a data-toggle="modal" data-target="#transaction" ng-click="edit(expense)"><span class="glyphicon glyphicon-edit"></span></a></td>
-  </tr>
+    <tr ng-repeat="expense in expenses | orderBy: ['date','created_at']:true track by $index">
+      <td align="center">{{expense.date | date: 'MMM/d'}}</td>
+      <td align="right">{{expense.amount | currency}}</td>
+      <td class="hidden-xs">{{expense.category}}</td>
+      <td>{{expense.description | limitTo: 15 }}</a></td>
+      <td class="hidden-xs">{{expense.transaction_type}}</td>
+      <td class="hidden-xs">{{expense.payment_method}}</td>
+      <td align="center"><a data-toggle="modal" data-target="#transaction" ng-click="edit(expense)"><span class="glyphicon glyphicon-edit"></span></a></td>
+    </tr>
   </tbody>
 </table>
+
+<!-- Loading GIF -->
+<div id="ajax-loading">
+  <div id="dummy"></div>
+  <div id="img-container">
+    <%= image_tag 'ajax-loader.gif' %>
+  </div>
+</div>
+
 </div>
