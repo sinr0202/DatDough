@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.1.6'
 gem 'rails', '~> 4.2.0'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -51,6 +51,7 @@ gem 'groupdate'
 gem 'nvd3-rails'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'angular-rails-templates'
 source "https://rails-assets.org" do
   gem "rails-assets-angular-devise"
 end

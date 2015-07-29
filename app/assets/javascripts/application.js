@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
 //= require angular
@@ -22,4 +21,5 @@
 //= require ng-rails-csrf
 //= require nvd3-rails
 //= require app
+//= require ui-bootstrap-tpls-0.13.1.min
 //= require_tree .

@@ -1,4 +1,4 @@
-window.App = angular.module("ExpenseTracker", ["ngRoute", "ngResource", 'rails', 'ng-rails-csrf', 'Devise'])
+window.App = angular.module("ExpenseTracker", ["ngRoute", "ngResource", 'rails', 'ng-rails-csrf', 'Devise', 'ui.bootstrap'])
 
 App.config ["railsSerializerProvider", (railsSerializerProvider) ->
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity)

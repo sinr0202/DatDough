@@ -110,6 +110,7 @@ class ExpensesController < ApplicationController
   def dailify(daily_hash)
     #daily_hash should be ordered by date
     daily_expenses_arr = daily_hash.to_a
+    return [] if daily_expenses_arr.empty?
     min_date = daily_expenses_arr.first[0]
     max_date = daily_expenses_arr.last[0]
     # total_days = (max_date - min_date).to_i + 1

@@ -9,6 +9,6 @@
 # puts 'CREATED ADMIN USER: ' << user.email
 
 user = FactoryGirl.create(:user)
-1000.times do
+100.times do
   FactoryGirl.create(:expense, user: user)
 end

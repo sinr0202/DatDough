@@ -7,73 +7,77 @@
 
 <!-- Buttons -->
 <div class="btn-group btn-group-justified">
-  <a class="btn btn-default btn-lg" style="width:20%" data-toggle="modal" data-target="#date" ><span class="glyphicon glyphicon-time"></span></a>
-  <a class="btn btn-success btn-lg" style="width:80%" data-toggle="modal" data-target="#transaction" ng-click="new()">Add Transaction</a>
+  <a class="btn btn-default btn-lg" style="width:20%" ng-click="openDateModal()"><span class="glyphicon glyphicon-time"></span></a>
+  <a class="btn btn-success btn-lg" style="width:80%" ng-click="new()">Add Transaction</a>
 </div>
 
 <!-- Date Range Modal -->
-<div class="modal fade" id="date" tabindex="-1" role="dialog" aria-labelledby="dateLabel">
-  <div class="modal-dialog" role="document">
+<script type="text/ng-template" id="dateModal.html">
+  <form name="dateForm" novalidate>
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" aria-label="Close" ng-click="close()"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="dateLabel">Date Range</h4>
       </div>
       <div class="modal-body">
-        <%= label_tag "start date" %>
-        <%= date_field_tag 'start_date', nil, class: "form-control", data: {'ng-model' => 'startDate', 'ng-change' => 'updateExpense()'} %>
-        <%= label_tag "end date" %>
-        <%= date_field_tag 'end_date', nil, class: "form-control", data: {'ng-model' => 'endDate', 'ng-change' => 'updateExpense()'} %>
+        <div class="form-group" ng-class="{'has-error' : dateForm.start_date.$invalid && !dateForm.start_date.$pristine, 'has-success' : dateForm.start_date.$valid}"
+          <label for="start_date">Start date</label>
+          <input type="date" name="start_date" class="form-control" ng-model="startDate" required>
+        </div>
+        <div class="form-group" ng-class="{'has-error' : dateForm.end_date.$invalid && !dateForm.end_date.$pristine, 'has-success' : dateForm.end_date.$valid}"
+          <label for="end_date">End date</label>
+          <input type="date" name="end_date" class="form-control" ng-model="endDate" required>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Return</button>
+        <button type="submit" class="btn btn-default" ng-click="close()">Return</button>
       </div>
     </div>
-  </div>
-</div>
+  </form>
+</script>
 
 <!-- Transaction Modal -->
-<div class="modal fade" id="transaction" tabindex="-1" role="dialog" aria-labelledby="transactionLabel">
-  <div class="modal-dialog" role="document">
+<script type="text/ng-template" id="transactionModal.html">
+
+
+  <form name="transactionForm" novalidate>
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="transactionLabel" ng-show="editing">Edit Transaction</h4>
         <h4 class="modal-title" id="transactionLabel" ng-hide="editing">New Transaction</h4>
       </div>
-      <!-- <form name="expense-form" ng-submit="save()"> -->
         <div class="modal-body">
-          <div class="form-group">
-            <%= label_tag :date %>
-            <%= date_field_tag :date, nil, class: "form-control", data: {'ng-model' => 'expense.date'} %>
+          <div class="form-group" ng-class="{'has-error' : transactionForm.date.$invalid && !transactionForm.date.$pristine, 'has-success' : transactionForm.date.$valid}">
+            <label for="date">Date</label>
+            <input type="date" name="date" class="form-control" ng-model="expense.date" required>
           </div>
-          <div class="form-group">
-            <%= label_tag :amount %>
-            <%= number_field_tag :amount, nil, step: 0.01, class: "form-control", placeholder: '9.99', data: {'ng-model' => 'expense.amount'} %>
+          <div class="form-group" ng-class="{'has-error' : transactionForm.amount.$invalid && !transactionForm.amount.$pristine, 'has-success' : transactionForm.amount.$valid}">
+            <label for="amount">Amount</label>
+            <input type="number" name="amount" step="0.01" class="form-control" placeholder="9.99" ng-model="expense.amount" required>
           </div>
-          <div class="form-group">
+          <div class="form-group has-success">
             <%= label_tag :category %>
-            <%= select_tag :category, options_for_select(Expense.categories.keys.to_a), {class: "form-control", data: {'ng-model' => 'expense.category'}} %>
+            <%= select_tag :category, options_for_select(Expense.categories.keys.to_a), {class: "form-control", data: {'ng-model' => 'expense.category'}, required: true} %>
           </div>
-          <div class="form-group">
+          <div class="form-group has-success">
             <%= label_tag :payment_method %>
-            <%= select_tag :payment_method, options_for_select(Expense.payment_methods.keys.to_a), {class: "form-control", data: {'ng-model' => 'expense.payment_method'}}%>
+            <%= select_tag :payment_method, options_for_select(Expense.payment_methods.keys.to_a), {class: "form-control", data: {'ng-model' => 'expense.payment_method', required: true}}%>
           </div>
-
-          <div class="form-group">
-            <%= label_tag :description %>
-            <%= text_area_tag :description, nil, row: 3, class: "form-control", placeholder: 'dinner at chens', data: {'ng-model' => 'expense.description'}%>
+          <div class="form-group" ng-class="{'has-error' : transactionForm.description.$invalid && !transactionForm.description.$pristine, 'has-success' : transactionForm.description.$valid}">
+            <label for="description">Description</label>
+            <textarea name="description" row="3" class="form-control" placeholder="dinner at mels" ng-model="expense.description" required></textarea>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="delete(expense)" ng-show="editing!==false">Delete</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save()">{{status()}}</button>
+          <button type="button" class="btn btn-danger" ng-click="delete(expense)" ng-hide="editing === false">Delete</button>
+          <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+          <button type="submit" class="btn btn-primary" ng-show="editing === false" ng-click="save()">Add Transaction</button>
+          <button type="submit" class="btn btn-primary" ng-hide="editing === false" ng-click="update()">Update Changes</button>
         </div>
-      <!-- </form> -->
     </div>
-  </div>
-</div>
+  </form>
+</script>
 
 <!-- Data Table -->
 <table class="table table-striped">
@@ -100,6 +104,7 @@
     </tr>
   </tbody>
 </table>
+<h1 style="text-align: center;" ng-hide="expenses.length">No Transactions</h1>
 
 <!-- Loading GIF -->
 <div id="ajax-loading">

@@ -1,6 +1,7 @@
-App.controller 'ExpenseCtrl', [ '$scope', '$http', 'Expense', ($scope, $http, Expense) ->
+App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope, $http, $modal, Expense) ->
 
   $scope.page = 0
+  $scope.alreadyLoading = false
   $scope.expenses = []
   $scope.editing = false
   $scope.dailyExpense = false
@@ -10,10 +11,16 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', 'Expense', ($scope, $http, Ex
   $scope.startDate.setDate($scope.startDate.getDate()-60)
 
   $scope.loadNextExpense = ->
+    return if $scope.alreadyLoading
+    $scope.showLoading()
+    $scope.alreadyLoading = true
     $scope.page += 1
     Expense.query({page: $scope.page}).then (expenses) ->
-      $scope.expenses = $scope.expenses.concat(expenses)
       $scope.hideLoading()
+      # if expenses are empty dont let it load again
+      return if expenses.length < 30
+      $scope.alreadyLoading = false
+      $scope.expenses = $scope.expenses.concat(expenses)
     return
 
   $scope.queryString = ->
@@ -50,19 +57,15 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', 'Expense', ($scope, $http, Ex
         console.log data 
       )
 
-  $scope.updateExpense = ->
-    console.log 'update'
+  $scope.updateGraph = ->
     if ($scope.startDate && $scope.endDate) && ($scope.startDate < $scope.endDate)
-      console.log $scope.queryString()
       $scope.getDailyExpense()
       $scope.getNetExpense()
     else
       console.log 'invalid date'
 
   $scope.graph = ->
-    console.log 'graphzz'
-    unless ($scope.dailyExpense and $scope.netExpense)
-      return
+    return unless ($scope.dailyExpense and $scope.netExpense)
     nv.addGraph( ->
       graph_arr = [{
           "key" : "Daily",
@@ -103,54 +106,40 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', 'Expense', ($scope, $http, Ex
     $scope.expense = {
       # default settings
       date: new Date()
-      category: 'groceries'
+      category: 'dining'
       payment_method: 'cash'
     }
+    $scope.openTransactionModal()
     return
 
   $scope.edit = (expense)->
     $scope.editing = $scope.expenses.indexOf(expense)
     Expense.get(expense).then (data)->
-      data.date = new Date(data.date)
+      console.log data.date
+      data.date = new Date(data.date + 'EDT')
+      console.log data.date
       data.amount = parseFloat(data.amount)
       $scope.expense = data
+      $scope.openTransactionModal()
     return
 
-  $scope.save = ->
-    unless $scope.editing == false
-      console.log 'update'
-      new Expense($scope.expense).update().then (data)->
-        $scope.expenses[$scope.editing] = data
-        $scope.editing = false
-    else
-      console.log 'create'
-      new Expense($scope.expense).create().then (data)->
-        $scope.expenses.push(data)
-    $scope.graph()
-    return
+  $scope.saved = (expense) ->
+    $scope.expenses.push(expense)
 
-  $scope.delete = (expense)->
-    if(confirm('Are you sure?'))
-      expense.delete().then (data) ->
-        delete $scope.expenses[$scope.editing]
-        $scope.editing = false
-        $scope.graph()
-    return
+  $scope.updated = (expense)->
+    $scope.expenses[$scope.editing] = expense
 
+  $scope.deleted = ->
+    $scope.expenses.splice($scope.editing,1)
 
-  $scope.status = ->
-    if $scope.editing == false
-      return 'Add Transaction'
-    else
-      return 'Update Changes'
+  $scope.ranged = (startDate, endDate) ->
+    $scope.startDate = startDate
+    $scope.endDate = endDate
 
   $scope.scroll = ->
-    console.log 'scrollllllll'
     more_posts_url = $('.pagination .next_page a').attr('href')
     if $(window).scrollTop() > $(document).height() - $(window).height() - 60
-      console.log 'nexttttt'
       $scope.loadNextExpense()
-      $scope.showLoading()
 
   $scope.showLoading = ->
     $('#ajax-loading').show()
@@ -158,8 +147,55 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', 'Expense', ($scope, $http, Ex
   $scope.hideLoading = ->
     $('#ajax-loading').hide()
 
+  $scope.openTransactionModal = (size) -> 
+    transactionModal = $modal.open({
+      animation: true
+      templateUrl: 'transactionModal.html'
+      controller: 'TransactionModalCtrl'
+      size: size
+      resolve: {
+        expense: () ->
+          return $scope.expense
+        editing: () ->
+          return $scope.editing
+        saved: () ->
+          return $scope.saved
+        updated: () ->
+          return $scope.updated
+        deleted: () ->
+          return $scope.deleted
+      }
+    })
+
+    transactionModal.result.then (refresh) ->
+      $scope.updateGraph() if refresh
+      console.log 'modal closed succssfully'
+
+  $scope.openDateModal = (size) ->
+    dateModal = $modal.open({
+      animation:true
+      templateUrl: 'dateModal.html'
+      controller: 'DateModalCtrl'
+      size:size
+      resolve:{
+        startDate: () ->
+          return $scope.startDate
+        endDate: () ->
+          return $scope.endDate
+        ranged: () ->
+          return $scope.ranged    
+      }
+    })
+
+    dateModal.result.then (refresh) ->
+      $scope.updateGraph() if refresh
+      console.log 'modal closed succssfully'      
+
+  # $scope.popoverHide = () ->
+  #   console.log @
+  #   $('.popover').hide()
+
   $scope.loadNextExpense()
-  $scope.updateExpense()
+  $scope.updateGraph()
   $(window).bind 'scroll', $scope.scroll
-  $('[data-toggle="popover"]').popover()
 ]
