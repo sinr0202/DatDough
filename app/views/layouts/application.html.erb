@@ -23,7 +23,7 @@
                 <% if user_signed_in? %>
                   <li <% if current_page?(edit_user_registration_path) %>class="active"<% end %>><%= link_to 'Edit Account', edit_user_registration_path, class: 'navbar-link' %></li>
                   <li class="hidden-xs <% if current_page?(import_path) %>active<% end %>" ><%= link_to 'Import CSV', import_path, class: 'navbar-link' %></li>
-                  <li><%= link_to "Graphs", graph_path, class: 'navbar-link' %></li>
+                  <!-- <li><%= link_to "Graphs", graph_path, class: 'navbar-link' %></li> -->
                   <li role="separator" class="divider"></li>
                   <li><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'navbar-link' %></li>
                 <% else %>

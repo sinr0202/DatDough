@@ -191,10 +191,6 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
       $scope.updateGraph() if refresh
       console.log 'modal closed succssfully'      
 
-  # $scope.popoverHide = () ->
-  #   console.log @
-  #   $('.popover').hide()
-
   $scope.loadNextExpense()
   $scope.updateGraph()
   $(window).bind 'scroll', $scope.scroll
