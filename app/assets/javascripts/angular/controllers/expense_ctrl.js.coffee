@@ -113,7 +113,6 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
     return
 
   $scope.edit = (expense)->
-    console.log expense
     $scope.editing = $scope.expenses.indexOf(expense)
     Expense.get(expense).then (data)->
       # timezone offset working its way
