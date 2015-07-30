@@ -113,11 +113,15 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
     return
 
   $scope.edit = (expense)->
+    console.log expense
     $scope.editing = $scope.expenses.indexOf(expense)
     Expense.get(expense).then (data)->
-      console.log data.date
-      data.date = new Date(data.date + 'EDT')
-      console.log data.date
+      # timezone offset working its way
+      data.date = new Date(data.date)
+      offset = new Date().getTimezoneOffset()*60000
+      data.date = new Date(data.date.getTime() + offset)
+      # data.date = new Date(data.date + 'EDT')
+      # console.log data.date
       data.amount = parseFloat(data.amount)
       $scope.expense = data
       $scope.openTransactionModal()
