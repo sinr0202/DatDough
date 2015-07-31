@@ -70,7 +70,6 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
     nv.utils.windowResize($scope.chart.update);
 
   $scope.graph = ->
-    console.log 'graph'
     return unless ($scope.dailyExpense and $scope.netExpense)
     $scope.dataArray = [{
       "key" : "Daily",
@@ -80,9 +79,7 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
       "key" : "Net",
       "values" : $scope.netExpense
     }]
-    console.log 'data ready'
     if $scope.chart
-      console.log 'regraph'
       $scope.regraph()
       return
     nv.addGraph( ->
@@ -105,7 +102,7 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
       $scope.chart.bars.forceY([0])
       $scope.chart.focusEnable(false)
       $scope.chart.showLegend(false)
-      $scope.chartData = d3.select('#chart svg').datum($scope.dataArray)
+      $scope.chartData = d3.select('#main-chart svg').datum($scope.dataArray)
       $scope.chartData.transition().call($scope.chart)
 
       nv.utils.windowResize($scope.chart.update)
@@ -127,12 +124,10 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
   $scope.edit = (expense)->
     $scope.editing = $scope.expenses.indexOf(expense)
     Expense.get(expense).then (data)->
-      # timezone offset working its way
+      # timezone offset
       data.date = new Date(data.date)
       offset = new Date().getTimezoneOffset()*60000
       data.date = new Date(data.date.getTime() + offset)
-      # data.date = new Date(data.date + 'EDT')
-      # console.log data.date
       data.amount = parseFloat(data.amount)
       $scope.expense = data
       $scope.openTransactionModal()

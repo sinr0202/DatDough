@@ -19,15 +19,23 @@ App.controller 'GraphCtrl', ['$scope', '$http','$modal', ($scope, $http, $modal)
     return query
 
   $scope.getCategoryExpense = ->
-    console.log 'called'
     # for AND condition for net
+    maxCategory = 5
     $http.get('/stats/category' + $scope.queryString()).
       success((data, status, headers, config)->
-        console.log data
         resultArray = []
+        otherTotal = 0
+        maxCategory = Object.keys(data).length if Object.keys(data).length < maxCategory
         for category, total of data
-          console.log category, total
-          resultArray.push({'key':category,'y':total})
+          for i in [maxCategory-1..0]
+            continue unless resultArray[i] && total < resultArray[i].y
+            break
+          if i + 1 == maxCategory
+            otherTotal += parseFloat(total)
+          else
+            resultArray.splice(i+1, 0, {'key':category,'y':total})
+            otherTotal += parseFloat(resultArray.pop().y) if resultArray.length > maxCategory
+        resultArray[maxCategory] = {'key':'other','y':otherTotal}
         $scope.pieData = resultArray
         $scope.pieGraph()
       ).

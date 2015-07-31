@@ -54,7 +54,7 @@ class StatsController < ApplicationController
     puts category_hash
     categories = Expense.categories
     categories.each do |category,val|
-    	result_hash[category] = category_hash[val].to_i if category_hash[val]
+    	result_hash[category] = category_hash[val].abs if category_hash[val]
 	end
 
   	render json: result_hash, status: :ok

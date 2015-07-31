@@ -12,7 +12,6 @@ App.controller 'TransactionModalCtrl', ['$scope', '$modalInstance', 'Expense', '
       alert('Invalid submission! Try again')
       return
     return unless editing == false
-    console.log $scope.expense
     new Expense($scope.expense).create().then (data)->
       $scope.saved(data)
       $scope.close(true)
@@ -24,7 +23,6 @@ App.controller 'TransactionModalCtrl', ['$scope', '$modalInstance', 'Expense', '
       alert('Invalid submission! Try again')
       return
     return if editing == false
-    console.log $scope.expense
     new Expense($scope.expense).update().then (data)->
       $scope.updated(data)
       $scope.close(true)
