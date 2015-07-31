@@ -1,14 +1,8 @@
 App.controller 'GraphCtrl', ['$scope', '$http','$modal', ($scope, $http, $modal) ->
 
-  $scope.dataArray = [
-    {key: "One", y: 5},
-    {key: "Two", y: 2},
-    {key: "Three", y: 9},
-    {key: "Four", y: 7},
-    {key: "Five", y: 4},
-    {key: "Six", y: 3},
-    {key: "Seven", y: 0.5}
-  ]
+  $scope.endDate = new Date()
+  $scope.startDate = new Date()
+  $scope.startDate.setDate($scope.startDate.getDate()-60)
 
   $scope.queryString = ->
     query = ''
@@ -20,7 +14,7 @@ App.controller 'GraphCtrl', ['$scope', '$http','$modal', ($scope, $http, $modal)
 
   $scope.getCategoryExpense = ->
     # for AND condition for net
-    maxCategory = 5
+    maxCategory = 8
     $http.get('/stats/category' + $scope.queryString()).
       success((data, status, headers, config)->
         resultArray = []
