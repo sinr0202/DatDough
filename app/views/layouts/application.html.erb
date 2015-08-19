@@ -7,65 +7,6 @@
   <%= csrf_meta_tags %>
   <%= favicon_link_tag %>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One' rel='stylesheet' type='text/css'>
 </head>
-<body>
-  <div class="container-fluid">
-    <div class="header">
-      <nav>
-        <ul class="nav nav-pills pull-right">
-          <li>
-            <div class="btn-group" dropdown is-open="status.isopen">
-              <a type="button" class="btn btn-default dropdown-toggley" dropdown-toggle ng-disabled="disabled">
-                <span class="glyphicon glyphicon-list"></span>
-              </a>
-              <ul class="dropdown-menu pull-right">
-                <% if user_signed_in? %>
-                  <li><%= link_to "Graphs", graph_path, class: 'navbar-link' %></li>
-                  <li <% if current_page?(edit_user_registration_path) %>class="active"<% end %>><%= link_to 'Edit Account', edit_user_registration_path, class: 'navbar-link' %></li>
-                  <li class="hidden-xs <% if current_page?(import_path) %>active<% end %>" ><%= link_to 'Import CSV', import_path, class: 'navbar-link' %></li>
-                  <li role="separator" class="divider"></li>
-                  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'navbar-link' %></li>
-                <% else %>
-                  <li><%= link_to "Sign Up", new_user_registration_path, class: 'navbar-link' %></li>
-                  <li role="separator" class="divider"></li>
-                  <li><%= link_to "Login", new_user_session_path, class: 'navbar-link' %></li>
-                <% end %>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </nav>
-      <h3 class="text-muted"><a href='/' style='text-decoration: none; font-family: "Alfa Slab One", cursive;'>DatDough</a></h3>
-    </div>
-  </div>
-
-  <% if controller_name == 'expenses' %>
-    <div class="container-fluid">
-  <% else %>
-    <div class="container">
-  <% end  %>
-    <% if notice %>
-      <p class="alert alert-success bg-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger bg-warning"><%= alert %></p>
-    <% end %>
-
-      <div id="layout">
-        <%= yield %>
-      </div>
-    </div>
-
-    <footer class="footer">
-      <div class="container">
-        <p>© DatDough 2015</p>
-        <%= link_to 'About', about_path, target: "_self" %>&nbsp;
-        <%= link_to 'Contact', contact_path, target: "_self" %>&nbsp;
-        <%= link_to 'Donation', donation_path, target: "_self" %>
-      </div>
-    </footer>
-
-  </div> <!-- /container -->
-</body>
+<%= yield %>
 </html>

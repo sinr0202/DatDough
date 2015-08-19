@@ -1,8 +1,4 @@
-App.controller 'GraphCtrl', ['$scope', '$http','$modal', ($scope, $http, $modal) ->
-
-  $scope.endDate = new Date()
-  $scope.startDate = new Date()
-  $scope.startDate.setDate($scope.startDate.getDate()-60)
+App.controller 'StatsCtrl', ['$scope', '$http','$modal', ($scope, $http, $modal) ->
 
   $scope.queryString = ->
     query = ''
@@ -53,5 +49,12 @@ App.controller 'GraphCtrl', ['$scope', '$http','$modal', ($scope, $http, $modal)
       return $scope.chart
     )
 
-  $scope.getCategoryExpense()
+  $scope.initialize = ->
+    console.log 'graph initialized'
+    $scope.endDate = new Date()
+    $scope.startDate = new Date()
+    $scope.startDate.setDate($scope.startDate.getDate()-60)
+    $scope.getCategoryExpense()
+
+  $scope.$on('showGraph', $scope.initialize)
 ]

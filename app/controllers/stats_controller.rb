@@ -40,7 +40,6 @@ class StatsController < ApplicationController
 
   def category
   	if (params[:start_date].nil? || params[:start_date].empty?) && (params[:end_date].nil? || params[:end_date].empty?)
-  	  puts 'helloo'
       category_hash = Expense.where(user: current_user).group(:category).order(category: :asc).sum(:amount)
     elsif !params[:start_date].empty? && params[:end_date].empty?
       category_hash = Expense.where(user: current_user).transferred_after(params[:start_date]).group(:category).order(category: :asc).sum(:amount)
@@ -51,13 +50,43 @@ class StatsController < ApplicationController
     end
 
     result_hash = {}
-    puts category_hash
     categories = Expense.categories
     categories.each do |category,val|
     	result_hash[category] = category_hash[val].abs if category_hash[val]
 	end
 
   	render json: result_hash, status: :ok
+  end
+
+  def monthly
+    expenses = current_user.expenses
+    net_hash = {}
+    income_hash = {}
+    expense_hash = {}
+
+    expenses.each do |e|
+      net_hash[e.date.year] = Array.new(12, 0) unless net_hash.key?(e.date.year)
+      net_hash[e.date.year][e.date.month-1] += e.amount
+      if e.transaction_type == "expense"
+        expense_hash[e.date.year] = Array.new(12, 0) unless expense_hash.key?(e.date.year)
+        expense_hash[e.date.year][e.date.month-1] += e.amount
+      else
+        income_hash[e.date.year] = Array.new(12, 0) unless income_hash.key?(e.date.year)
+        income_hash[e.date.year][e.date.month-1] += e.amount
+      end
+    end
+
+    avg_hash = {}
+    count = 0
+    expense_hash.each do |year, months|
+      sum = months.inject(BigDecimal.new("0")) {|sum,x|
+        count += 1 unless x.zero?
+        sum + x
+      }
+      avg_hash[year] = sum / count
+    end
+
+    render json: {net: net_hash, expense: expense_hash, income: income_hash, avg: avg_hash}, status: :ok
   end
 
   private 

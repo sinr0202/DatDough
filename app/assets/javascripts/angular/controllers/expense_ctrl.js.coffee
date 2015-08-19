@@ -196,12 +196,25 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
           return $scope.ranged    
       }
     })
-
     dateModal.result.then (refresh) ->
       $scope.updateGraph() if refresh
       console.log 'modal closed succssfully'      
 
-  $scope.loadNextExpense()
-  $scope.updateGraph()
-  $(window).bind 'scroll', $scope.scroll
+  $scope.initialize = ->
+    console.log 'expense intialized'
+    $scope.page = 0
+    $scope.alreadyLoading = false
+    $scope.expenses = []
+    $scope.editing = false
+    $scope.dailyExpense = false
+    $scope.netExpense = false
+    $scope.endDate = new Date()
+    $scope.startDate = new Date()
+    $scope.startDate.setDate($scope.startDate.getDate()-60)
+
+    $scope.loadNextExpense()
+    $scope.updateGraph()
+    $(window).bind 'scroll', $scope.scroll
+
+  $scope.$on('signin', $scope.initialize)
 ]

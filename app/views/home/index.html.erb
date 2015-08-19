@@ -1,30 +1,222 @@
-<div class="jumbotron">
-  <h1>Welcome to DatDough!</h1>
-  <p class="lead">Become aware of your money flow! Get on top of your finances by analyzing your habitual spending!</p>
-  <%= link_to "Sign in", new_user_session_path, class: "btn btn-default"%>
-  <%= link_to "Sign up", new_user_registration_path, class: "btn btn-success", role: "button" %>
-</div>
+<body ng-controller="LandingCtrl" ng-class="{'backdrop' : background}">
+<nav class="navbar navbar-trans navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand text-danger" href="#">DatDough</a>
+        </div>
+        <div class="navbar-collapse collapse" collapse="!isCollapsed" >
+            <ul class="nav navbar-nav navbar-right">
+                <li><a ng-hide="loggedIn" ng-click="selectTab(3)"><span class="glyphicon glyphicon-pencil">&nbsp;Signup</span></a></li>
+                <li><a ng-hide="loggedIn" ng-click="selectTab(2)"><span class="glyphicon glyphicon-log-in">&nbsp;Signin</span></a></li>
+                <li><a ng-show="loggedIn" ng-click="showGraph()"><span class="glyphicon glyphicon-object-align-bottom">&nbsp;Graph</span></a></li>
+                <li><a ng-show="loggedIn" ng-click="logout()"><span class="glyphicon glyphicon-log-out">&nbsp;Signout</span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Track</h4>
-    <p>your spending! Many times it can be a surprise to find the amount of money you spend on small things.</p>
+<div class="container">
 
-    <h4>Graph</h4>
-    <p>the transactions to visually analyze your savings and expenses. Whether its weekly, monthly, or by category, you can do them all.</p>
+    <div ng-show="tabSelected(1)" class="jumbotron text-center">
+        <h1><span class="fa fa-lock"></span> DatDough</h1>
+        <a ng-click="demo()" class="btn btn-primary btn-lg"><span class="fa fa-user"></span> Demo</a>
 
-    <h4>Free</h4>
-    <p>For the time being, all services we provide are free of charge. <%= link_to 'Donate', donation_path, target: "_self" %> through paypal and bitcoin are appreciated!</p>
+        <p>Login or Register:</p>
+
+        <a ng-click="selectTab(2)" class="btn btn-default btn-lg"><span class="fa fa-user"></span> Login</a>
+        <a ng-click="selectTab(3)" class="btn btn-default btn-lg"><span class="fa fa-user"></span> Signup</a><br>
+    </div>
+
+    <div ng-show="tabSelected(2)" class="jumbotron">
+
+        <h1 class="text-center"><span class="fa fa-sign-in"></span> Signin</h1>
+
+        <!-- show any messages that come back with authentication -->
+
+
+        <!-- LOGIN FORM -->
+        <form ng-submit="login()" novalidate>
+            <p ng-show="loginError" class="alert alert-danger bg-danger">Sign in unsuccessful.</p>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" ng-model="email" >
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" ng-model="password" >
+            </div>
+            <input type="button" ng-click="selectTab(1)" class="btn btn-default btn-lg" value="Cancel"/>
+            <input type="submit" class="btn btn-success btn-lg" value="Login"/>
+        </form>
+
+        <hr>
+
+        <p>Need an account? <a ng-click="selectTab(3)">Signup</a></p>
+
+    </div>
+
+    <div ng-show="tabSelected(3)" class="jumbotron">
+
+        <h1 class="text-center"><span class="fa fa-sign-in"></span> Signup</h1>
+
+        <!-- show any messages that come back with authentication -->
+
+
+        <!-- LOGIN FORM -->
+        <form ng-submit="signUp()" novalidate>
+            <p ng-show="signupError" class="alert alert-danger bg-danger">Sign up unsuccessful.</p>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" ng-model="email" >
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" ng-model="password" >
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" class="form-control" ng-model="passwordConfirm" >
+            </div>
+            <input type="button" ng-click="selectTab(1)" class="btn btn-default btn-lg" value="Cancel" />
+            <input type="submit" class="btn btn-primary btn-lg" value="Signup" />
+        </form>
+
+        <hr>
+
+        <p>Already have an account? <a ng-click="selectTab(2)">Login</a></p>
+
+    </div>
   </div>
 
-  <div class="col-lg-6">
-    <h4>Simple</h4>
-    <p>designs, and intuitive analysis leaves us more useful information to track out habits</p>
+  <div ng-show="tabSelected(4)" ng-controller="ExpenseCtrl" class="container-fluid">
 
-    <h4>Innovative</h4>
-    <p>algorithms are used to analyze the gold within your data.</p>
+    <!-- Chart -->
+    <div id="main-chart">
+      <svg></svg>
+    </div>
 
-    <h4>Value</h4>
-    <p>of learning though results is priceless. It's how we humans have built civilizations, business, and knowledge. Expense Tracker is a tool for anyone; to learn more about his/her personal finance</p>
+    <!-- Buttons -->
+    <div class="btn-group btn-group-justified">
+      <a class="btn btn-default btn-lg" style="width:20%" ng-click="openDateModal()"><span class="glyphicon glyphicon-time"></span></a>
+      <a class="btn btn-success btn-lg" style="width:80%" ng-click="new()">Add Transaction</a>
+    </div>
+
+    <!-- Date Range Modal -->
+    <script type="text/ng-template" id="dateModal.html">
+      <form name="dateForm" novalidate>
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" ng-click="close()"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="dateLabel">Date Range</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group" ng-class="{'has-error' : dateForm.start_date.$invalid && !dateForm.start_date.$pristine, 'has-success' : dateForm.start_date.$valid}"
+              <label for="start_date">Start date</label>
+              <input type="date" name="start_date" class="form-control" ng-model="startDate" required>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : dateForm.end_date.$invalid && !dateForm.end_date.$pristine, 'has-success' : dateForm.end_date.$valid}"
+              <label for="end_date">End date</label>
+              <input type="date" name="end_date" class="form-control" ng-model="endDate" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default" ng-click="close()">Return</button>
+          </div>
+        </div>
+      </form>
+    </script>
+
+    <!-- Transaction Modal -->
+    <script type="text/ng-template" id="transactionModal.html">
+      <form name="transactionForm" novalidate>
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="transactionLabel" ng-show="editing">Edit Transaction</h4>
+            <h4 class="modal-title" id="transactionLabel" ng-hide="editing">New Transaction</h4>
+          </div>
+            <div class="modal-body">
+              <div class="form-group" ng-class="{'has-error' : transactionForm.date.$invalid && !transactionForm.date.$pristine, 'has-success' : transactionForm.date.$valid}">
+                <label for="date">Date</label>
+                <input type="date" name="date" class="form-control" ng-model="expense.date" required>
+              </div>
+              <div class="form-group" ng-class="{'has-error' : transactionForm.amount.$invalid && !transactionForm.amount.$pristine, 'has-success' : transactionForm.amount.$valid}">
+                <label for="amount">Amount</label>
+                <input type="number" name="amount" step="0.01" class="form-control" placeholder="9.99" ng-model="expense.amount" required>
+              </div>
+              <div class="form-group has-success">
+                <%= label_tag :category %>
+                <%= select_tag :category, options_for_select(Expense.categories.keys.to_a), {class: "form-control", data: {'ng-model' => 'expense.category'}, required: true} %>
+              </div>
+              <div class="form-group has-success">
+                <%= label_tag :payment_method %>
+                <%= select_tag :payment_method, options_for_select(Expense.payment_methods.keys.to_a), {class: "form-control", data: {'ng-model' => 'expense.payment_method', required: true}}%>
+              </div>
+              <div class="form-group" ng-class="{'has-error' : transactionForm.description.$invalid && !transactionForm.description.$pristine, 'has-success' : transactionForm.description.$valid}">
+                <label for="description">Description</label>
+                <textarea name="description" row="3" class="form-control" placeholder="dinner at mels" ng-model="expense.description" required></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" ng-click="delete(expense)" ng-hide="editing === false">Delete</button>
+              <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+              <button type="submit" class="btn btn-primary" ng-show="editing === false" ng-click="save()">Add Transaction</button>
+              <button type="submit" class="btn btn-primary" ng-hide="editing === false" ng-click="update()">Update Changes</button>
+            </div>
+        </div>
+      </form>
+    </script>
+
+    <!-- Data Table -->
+    <table class="table table-striped">
+      <thead>
+        <tr class="title" >
+          <th style="text-align:center;">Date</th>
+          <th style="text-align:right;">&nbsp;&nbsp;&nbsp;&nbsp;Amount</th>
+          <th class="hidden-xs">Category</th>
+          <th>Description</th>
+          <th class="hidden-xs">Transaction type</th>
+          <th class="hidden-xs">Payment method</th>
+          <th style="text-align:center;">Edit</th>
+        </tr>
+      </thead>
+      <tbody id="transactions">
+        <tr ng-repeat="expense in expenses | orderBy: ['date','created_at']:true track by $index">
+          <td align="center">{{expense.date | date: 'MMM/d'}}</td>
+          <td align="right">{{expense.amount | currency}}</td>
+          <td class="hidden-xs">{{expense.category}}</td>
+          <td>{{expense.description | limitTo: 15 }}</a></td>
+          <td class="hidden-xs">{{expense.transaction_type}}</td>
+          <td class="hidden-xs">{{expense.payment_method}}</td>
+          <td align="center"><a data-toggle="modal" data-target="#transaction" ng-click="edit(expense)"><span class="glyphicon glyphicon-edit"></span></a></td>
+        </tr>
+      </tbody>
+    </table>
+    <h1 style="text-align: center;" ng-hide="expenses.length">No Transactions</h1>
+
+    <!-- Loading GIF -->
+    <div id="ajax-loading">
+      <div id="dummy"></div>
+      <div id="img-container">
+        <%= image_tag 'ajax-loader.gif' %>
+      </div>
+    </div>
+
   </div>
-</div> 
+
+  <div ng-show="tabSelected(5)" ng-controller="StatsCtrl">
+    <!-- Chart -->
+    <div class="chart" id="pie-chart">
+      <svg></svg>
+    </div>
+  </div>
+
+
+</body>
+</html>
