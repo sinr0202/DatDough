@@ -33,14 +33,12 @@ App.controller 'LandingCtrl', ['$scope', '$http', ($scope, $http) ->
 		return $scope.currentTab == tab
 
 	$scope.selectTab = (tab)->
-		console.log($scope.background)
 		$scope.loginError = false
 		$scope.signupError = false
 		$scope.currentTab = tab
 		return
 
 	$scope.login = ()->
-		console.log('login')
 		$scope.rememberMe = false
 		data = {
 			user: {
@@ -50,14 +48,12 @@ App.controller 'LandingCtrl', ['$scope', '$http', ($scope, $http) ->
 			}
 		}
 		$http.post('/users/sign_in', data).then (response) ->
-			console.log 'broadcast'
 			$scope.$broadcast('signin')
 			$scope.showExpense()
 		,(response) ->
 			$scope.signupError = true;
 
 	$scope.signUp = ()->
-		console.log('signup')
 		data = {
 			user: {
 				email: $scope.email,

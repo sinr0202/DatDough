@@ -40,8 +40,6 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
         $scope.graph()
       ).
       error((data, status, headers, config) ->
-        console.log 'fail' 
-        console.log data 
       )
 
   $scope.getNetExpense = () ->
@@ -53,8 +51,6 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
         $scope.graph()
       ).
       error((data, status, headers, config) ->
-        console.log 'fail' 
-        console.log data 
       )
 
   $scope.updateGraph = ->
@@ -62,7 +58,6 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
       $scope.getDailyExpense()
       $scope.getNetExpense()
     else
-      console.log 'invalid date'
 
   $scope.regraph = ->
 
@@ -179,7 +174,6 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
 
     transactionModal.result.then (refresh) ->
       $scope.updateGraph() if refresh
-      console.log 'modal closed succssfully'
 
   $scope.openDateModal = (size) ->
     dateModal = $modal.open({
@@ -198,10 +192,8 @@ App.controller 'ExpenseCtrl', [ '$scope', '$http', '$modal', 'Expense', ($scope,
     })
     dateModal.result.then (refresh) ->
       $scope.updateGraph() if refresh
-      console.log 'modal closed succssfully'      
 
   $scope.initialize = ->
-    console.log 'expense intialized'
     $scope.page = 0
     $scope.alreadyLoading = false
     $scope.expenses = []

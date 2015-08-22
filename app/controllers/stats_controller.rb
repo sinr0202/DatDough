@@ -39,7 +39,7 @@ class StatsController < ApplicationController
   end
 
   def category
-  	if (params[:start_date].nil? || params[:start_date].empty?) && (params[:end_date].nil? || params[:end_date].empty?)
+    if (params[:start_date].nil? || params[:start_date].empty?) && (params[:end_date].nil? || params[:end_date].empty?)
       category_hash = Expense.where(user: current_user).group(:category).order(category: :asc).sum(:amount)
     elsif !params[:start_date].empty? && params[:end_date].empty?
       category_hash = Expense.where(user: current_user).transferred_after(params[:start_date]).group(:category).order(category: :asc).sum(:amount)
@@ -49,13 +49,20 @@ class StatsController < ApplicationController
       category_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).transferred_after(params[:start_date]).group(:category).order(category: :asc).sum(:amount)
     end
 
-    result_hash = {}
     categories = Expense.categories
-    categories.each do |category,val|
-    	result_hash[category] = category_hash[val].abs if category_hash[val]
-	end
+    category_hash.transform_keys!{ |val| categories.key(val) }
 
-  	render json: result_hash, status: :ok
+    income_hash = {}
+    expense_hash = {}
+    category_hash.each do |category, val|
+      if val > 0
+        income_hash[category.gsub(/_/, ' ').downcase.capitalize] = val
+      else
+        expense_hash[category.gsub(/_/, ' ').downcase.capitalize] = val.abs
+      end
+    end
+
+  	render json: {income: income_hash, expense: expense_hash}, status: :ok
   end
 
   def monthly
@@ -76,17 +83,35 @@ class StatsController < ApplicationController
       end
     end
 
-    avg_hash = {}
+    avg_expense_hash = {}
     count = 0
     expense_hash.each do |year, months|
       sum = months.inject(BigDecimal.new("0")) {|sum,x|
         count += 1 unless x.zero?
         sum + x
       }
-      avg_hash[year] = sum / count
+      if count == 0
+        avg_expense_hash[year] = 0
+      else
+        avg_expense_hash[year] = sum / count
+      end
     end
 
-    render json: {net: net_hash, expense: expense_hash, income: income_hash, avg: avg_hash}, status: :ok
+    avg_income_hash = {}
+    count = 0
+    income_hash.each do |year, months|
+      sum = months.inject(BigDecimal.new("0")) {|sum,x|
+        count += 1 unless x.zero?
+        sum + x
+      }
+      if count == 0
+        avg_income_hash[year] = 0
+      else
+        avg_income_hash[year] = sum / count
+      end
+    end
+
+    render json: {net: net_hash, expense: expense_hash, income: income_hash, avg_expense: avg_expense_hash, avg_income: avg_income_hash}, status: :ok
   end
 
   private 
