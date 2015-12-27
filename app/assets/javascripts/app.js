@@ -1,4 +1,4 @@
-window.App = angular.module('DatDoughApp', []);
+window.App = angular.module('DatDoughApp', ['ngMaterial']);
 
 $(document).on('ready page:load', function(){
 

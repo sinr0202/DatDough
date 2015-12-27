@@ -2,13 +2,15 @@
 
 #toolbar {
 	background: black;
-	z-index:inherit;
+	z-index: 100;
 
 	.logo {
 		color: red;
+		font-weight:bold;
 
 		sub {
 			font-size: 10px;
+			font-weight: normal;
 		}
 	}
 

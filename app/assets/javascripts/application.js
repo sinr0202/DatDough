@@ -14,7 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require angular
-//= require angular-material.min
+//= require angular-animate
+//= require angular-aria.min
+//= require angular-resource
+//= require angular-material
 //= require app
 //= devise-min.js
 //= require_tree .

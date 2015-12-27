@@ -8,33 +8,8 @@
 	  <%= favicon_link_tag %>
 	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	</head>
-	<body class="backdrop" layout="column">
-		<md-toolbar id="toolbar">
-
-		    <div class="md-toolbar-tools header" ng-controller="ToolbarController as tb">
-
-		        <div layout="row" layout-align="start start" flex="15">
-		            <H1 class="logo" id="name">DatDough
-		            	<sub title="version">v0.0.0</sub>
-		            </H1>
-		        </div>
-
-		        <span flex></span>
-
-		        <div class="icon-container" layout="row" layout-align="end center">
-		        	<div ng-show="false">
-			        	<i title="Settings" class="material-icons">settings</i>
-			        	<i title="Stats" class="material-icons">assessment</i>
-			            <i title="Logout" class="material-icons">exit_to_app</i>
-			        </div>
-			        <div ng-show="true">
-			        	<i title="SignUp" class="material-icons">create</i>
-			        	<i title="SignIn" class="material-icons">exit_to_app</i>
-			        </div>
-		        </div>
-		        
-		    </div>
-		</md-toolbar>
+	<body layout="column">
+		<%= render 'layouts/toolbar' %>
 		<%= yield %>
 	</body>
 </html>

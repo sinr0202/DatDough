@@ -1,0 +1,15 @@
+//Login CSS
+
+#login {
+
+	.forgotPass {
+		margin-bottom: 5px;
+		color: rgba(0, 0,0, 0.7);
+		cursor:pointer;
+
+		&:hover {
+			color: rgba(0,0,0,1);
+		}
+
+	}
+}

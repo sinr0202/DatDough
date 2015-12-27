@@ -1,0 +1,19 @@
+<div id="login" ng-controller="LoginController as lc" layout="row" layout-align="center center" fullheight>
+	<form novalidate layout="column" layout-align="space-between center" flex="40">
+		<md-input-container label="Email" class="md-default-theme fullWidth">
+			<label>Email</label>
+			<input ng-model="lc.username" class="md-input ng-touched" required>
+		</md-input-container>		
+		<md-input-container class="md-default-theme fullWidth">
+			<label>Password</label>
+			<input ng-model="lc.password" class="md-input" required>
+		</md-input-container>
+
+		<div ng-if="lc.errorMsg">
+			<span class="error-msg">{{lc.errorMsg}}</span>
+		</div>
+
+         <span class="forgotPass">Forgot password?</span>
+         <md-button class="md-primary fullWidth">Login</md-button>
+	</form>
+</div>

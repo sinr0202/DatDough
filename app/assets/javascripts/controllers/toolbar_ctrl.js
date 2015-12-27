@@ -7,8 +7,8 @@
  */
 
 
-App.controller('ToolbarController', function(){
+App.controller('ToolbarController', [, function(){
 
 	var vm = this;
 
-});
+}]);
