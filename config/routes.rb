@@ -16,10 +16,10 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  get '/user', to: 'home#check', as: 'check'
-  get '/about', to: 'home#about', as: 'about'
-  get '/contact', to: 'home#contact', as: 'contact'
-  get '/donation', to: 'home#donation', as: 'donation'
+  # get '/user', to: 'home#check', as: 'check'
+  # get '/about', to: 'home#about', as: 'about'
+  # get '/contact', to: 'home#contact', as: 'contact'
+  # get '/donation', to: 'home#donation', as: 'donation'
   
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}  
   resources :expenses
