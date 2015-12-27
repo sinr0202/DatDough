@@ -14,13 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require angular
-//= require angular-resource
-//= require angular-route
-//= require angular-devise
-//= require angularjs/rails/resource
-//= require ng-rails-csrf
-//= require d3.v3
-//= require nv.d3
 //= require app
-//= require ui-bootstrap-tpls-0.13.1.min
 //= require_tree .

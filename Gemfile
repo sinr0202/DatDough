@@ -42,16 +42,4 @@ group :test do
 end
 
 ## user specified
-gem 'bootstrap-sass', '~> 3.3.4.1'
 gem 'angularjs-rails'
-gem 'angularjs-rails-resource'
-gem 'responders', '~> 2.0'
-gem 'ng-rails-csrf'
-gem 'groupdate'
-gem 'novus-nvd3-rails'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
-gem 'angular-rails-templates'
-source "https://rails-assets.org" do
-  gem "rails-assets-angular-devise"
-end
