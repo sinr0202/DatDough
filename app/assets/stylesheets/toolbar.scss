@@ -1,0 +1,25 @@
+//ToolBar CSS
+
+#toolbar {
+	background: black;
+	z-index:inherit;
+
+	.logo {
+		color: orange;
+	}
+
+	.icon-container {
+		color: rgba(255,255,255,0.7);
+
+		i {
+			cursor: pointer;
+			margin-left: 10px;
+
+			&:hover {
+				color:rgba(255,255,255,1);
+			}
+		}
+
+	}
+
+}
