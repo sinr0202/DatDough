@@ -166,6 +166,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.5)
       sprockets-rails
+    rails-angular-material (0.10.0)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -301,6 +302,7 @@ DEPENDENCIES
   launchy
   pg
   rails (~> 4.2.0)
+  rails-angular-material
   rails_12factor
   rails_layout
   rb-fchange
