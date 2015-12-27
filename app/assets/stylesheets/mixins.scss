@@ -1,0 +1,64 @@
+//
+// Background
+// ----------------------------------------------
+
+@mixin bgCover() {
+  -webkit-background-size: cover;
+     -moz-background-size: cover;
+       -o-background-size: cover;
+          background-size: cover;
+}
+
+@mixin square($size) {
+    width : $size;
+    height: $size;
+}
+
+//
+// Animations
+// ----------------------------------------------
+@mixin transform($transforms) {
+     -moz-transform: $transforms;
+       -o-transform: $transforms;
+      -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+          transform: $transforms;
+}
+// rotate
+@mixin rotate ($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+ 
+// scale
+@mixin scale($scale) {
+   @include transform(scale($scale));
+} 
+
+@mixin transition($transition) {
+    -webkit-transition: $transition;
+       -moz-transition: $transition;
+        -ms-transition: $transition;
+         -o-transition: $transition;
+            transition: $transition;
+}
+
+@mixin box-shadow($box-shadow...) {
+    -webkit-box-shadow: $box-shadow;
+       -moz-box-shadow: $box-shadow;
+            box-shadow: $box-shadow;
+}
+
+@mixin border-radius($radius){
+
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin box-sizing($size){
+
+  -webkit-box-sizing: $size;
+     -moz-box-sizing: $size;
+          box-sizing: $size;
+
+}

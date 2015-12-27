@@ -8,7 +8,7 @@
 	  <%= favicon_link_tag %>
 	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	</head>
-	<body>
+	<body class="backdrop" layout="column">
 		<md-toolbar id="toolbar">
 
 		    <div class="md-toolbar-tools header" ng-controller="ToolbarController as tb">
@@ -22,9 +22,15 @@
 		        <span flex></span>
 
 		        <div class="icon-container" layout="row" layout-align="end center">
-		        	<i title="settings" class="material-icons">settings</i>
-		        	<i title="stats" class="material-icons">assessment</i>
-		            <i title="Logout" class="material-icons">exit_to_app</i>
+		        	<div ng-show="false">
+			        	<i title="Settings" class="material-icons">settings</i>
+			        	<i title="Stats" class="material-icons">assessment</i>
+			            <i title="Logout" class="material-icons">exit_to_app</i>
+			        </div>
+			        <div ng-show="true">
+			        	<i title="SignUp" class="material-icons">create</i>
+			        	<i title="SignIn" class="material-icons">exit_to_app</i>
+			        </div>
 		        </div>
 		        
 		    </div>
