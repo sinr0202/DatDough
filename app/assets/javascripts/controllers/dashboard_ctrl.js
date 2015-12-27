@@ -7,8 +7,8 @@
  */
 
 
-App.controller('DashboardController', [, function(){
+App.controller('DashboardController', function(){
 
 	var vm = this;
 
-}]);
+});

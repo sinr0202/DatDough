@@ -7,8 +7,8 @@
  */
 
 
-App.controller('SignUpController', [, function(){
+App.controller('SignUpController', function(){
 
 	var vm = this;
 
-}]);
+});

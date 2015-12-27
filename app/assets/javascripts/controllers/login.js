@@ -6,14 +6,13 @@
  * Controls the Authorization
  */
 
-App.controller('LoginController', function(Auth){
-
+App.controller('LoginController', ['Auth', function(Auth){
 
 	var vm = this;
 	vm.errorMsg = '';
 	vm.username = '';
 	vm.password = '';
-	vm.user = {}
+	vm.user = {};
 
 	console.log('checking for authentcation...')
 	Auth.currentUser().then(function(user) {
@@ -21,7 +20,7 @@ App.controller('LoginController', function(Auth){
         console.log(user);
     }, function(error) {
 		console.log('user authenticated: ', Auth.isAuthenticated());
-        console.log(error)
+        console.log(error);
     });
 
 	vm.signIn = function(email, password){
@@ -63,5 +62,5 @@ App.controller('LoginController', function(Auth){
 		});
 	}
 
-});
+}]);
 

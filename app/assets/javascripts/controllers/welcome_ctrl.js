@@ -7,8 +7,8 @@
  */
 
 
-App.controller('WelcomeController', [, function(){
+App.controller('WelcomeController', function(){
 
 	var vm = this;
 
-}]);
+});
