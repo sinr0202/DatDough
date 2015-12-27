@@ -3,7 +3,6 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :update, :destroy]
   
   def index
-    
     per_page = 30
     page = params[:page]
     start_date = params[:start_date]
@@ -13,25 +12,24 @@ class ExpensesController < ApplicationController
       expenses = Expense.where(user: current_user)
         .paginate(page: page, per_page: per_page)
         .order(date: :desc, created_at: :desc)
-    elsif !start_date.empty? && end_date.empty?
+    elsif end_date.empty?
       expenses = Expense.where(user: current_user)
-        .transferred_after(start_date).paginate(page: page, per_page: per_page)
+        .transferred_after(start_date)
+        .paginate(page: page, per_page: per_page)
         .order(date: :desc, created_at: :desc)
-    elsif start_date.empty? && !end_date.empty?
+    elsif start_date.empty?
       expenses = Expense.where(user: current_user)
-        .transferred_before(end_date).paginate(page: page, per_page: per_page)
+        .transferred_before(end_date)
+        .paginate(page: page, per_page: per_page)
         .order(date: :desc, created_at: :desc)
     else
       expenses = Expense.where(user: current_user)
         .transferred_after(start_date)
-        .transferred_before(end_date).paginate(page: page, per_page: per_page)
+        .transferred_before(end_date)
+        .paginate(page: page, per_page: per_page)
         .order(date: :desc, created_at: :desc)
     end
     render json: expenses.to_json
-  end
-
-  def new
-    @expense = Expense.new
   end
   
   def create
@@ -65,8 +63,12 @@ class ExpensesController < ApplicationController
   end
 
   def destroy
-    @expense.destroy
-    render json: {}, status: :ok
+    if owner?
+      @expense.destroy
+      render json: {}, status: :ok
+    else
+      render json: {message: "access denied"}, status: :unauthorized 
+    end
   end
   
   private 

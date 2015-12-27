@@ -37,6 +37,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    angular_rails_csrf (1.0.4)
+      rails (>= 3, < 5)
     angularjs-rails (1.4.8)
     arel (6.0.3)
     ast (2.2.0)
@@ -167,6 +169,9 @@ GEM
       railties (= 4.2.5)
       sprockets-rails
     rails-angular-material (0.10.0)
+    rails-assets-angular (1.4.8)
+    rails-assets-angular-devise (1.1.0)
+      rails-assets-angular (>= 1.2.0, < 2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -286,6 +291,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angular_rails_csrf
   angularjs-rails
   better_errors
   binding_of_caller
@@ -304,6 +310,7 @@ DEPENDENCIES
   pg
   rails (~> 4.2.0)
   rails-angular-material
+  rails-assets-angular-devise
   rails_12factor
   rails_layout
   rb-fchange

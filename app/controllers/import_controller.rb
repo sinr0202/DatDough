@@ -1,9 +1,6 @@
 class ImportController < ApplicationController
   before_action :authenticate_user!
 
-  def new
-  end
-
   def csv
     file = params[:file]
     CSV.foreach(file.path, headers: true) do |row|
