@@ -5,7 +5,11 @@
 	z-index:inherit;
 
 	.logo {
-		color: orange;
+		color: red;
+
+		sub {
+			font-size: 10px;
+		}
 	}
 
 	.icon-container {
