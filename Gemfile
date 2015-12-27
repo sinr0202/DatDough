@@ -46,3 +46,5 @@ gem 'angularjs-rails'
 gem 'will_paginate'
 gem 'rails-angular-material'
 gem 'material_icons'
+gem "rails-assets-angular-devise"
+gem 'angular_rails_csrf'

@@ -16,4 +16,5 @@
 //= require angular
 //= require angular-material.min
 //= require app
+//= devise-min.js
 //= require_tree .
