@@ -13,8 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require angular
-//= require angular-material.min
+//= require angular/angular.min
+//= require angular-animate/angular-animate.min
+//= require angular-aria/angular-aria.min
+//= require angular-devise/lib/devise-min
+//= require angular-material/angular-material.min
 //= require app
-//= require devise-min
 //= require_tree .
