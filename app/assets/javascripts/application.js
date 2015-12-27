@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require angular
+//= require angular-material.min
 //= require app
 //= require_tree .

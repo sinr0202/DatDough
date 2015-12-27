@@ -44,3 +44,4 @@ end
 ## user specified
 gem 'angularjs-rails'
 gem 'will_paginate'
+gem 'rails-angular-material'
