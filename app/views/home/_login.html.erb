@@ -2,11 +2,11 @@
 	<form novalidate layout="column" layout-align="space-between center" flex="40">
 		<md-input-container label="Email" class="fullWidth">
 			<label>Email</label>
-			<input ng-model="lc.username" class="md-input ng-touched" required>
+			<input ng-model="lc.email" class="md-input ng-touched" required>
 		</md-input-container>		
 		<md-input-container class="fullWidth">
 			<label>Password</label>
-			<input ng-model="lc.password" class="md-input" required>
+			<input ng-model="lc.password" class="md-input" type="password" required>
 		</md-input-container>
 
 		<div ng-if="lc.errorMsg">
@@ -15,8 +15,8 @@
 
 		<span class="forgotPass">Forgot password?</span>
 		<div layout="row" layout-align="space-between center">
-	         <md-button class="md-primary">Login</md-button>
-	         <md-button class="md-primary">Sign Up</md-button>
+			<md-button class="md-primary" ng-click="lc.signIn(lc.user, lc.password)">Login</md-button>
+		<md-button class="md-primary">Sign Up</md-button>
         </div>
 	</form>
 </div>
