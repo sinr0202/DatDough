@@ -2,7 +2,7 @@
 	<form novalidate layout="column" layout-align="space-between center" flex="40">
 		<md-input-container label="Email" class="fullWidth">
 			<label>Email</label>
-			<input ng-model="suc.username" class="md-input ng-touched" required>
+			<input ng-model="suc.email" class="md-input ng-touched" required>
 		</md-input-container>		
 		<md-input-container class="fullWidth">
 			<label>Password</label>
@@ -10,7 +10,7 @@
 		</md-input-container>
 		<md-input-container class="fullWidth">
 			<label>Retype Password</label>
-			<input ng-model="suc.retype_pass" class="md-input" required>
+			<input ng-model="suc.confirm" class="md-input" required>
 		</md-input-container>
 
 		<div ng-if="suc.errorMsg">
@@ -18,7 +18,7 @@
 		</div>
 
 		<div layout="row" layout-align="end center">
-	         <md-button class="md-primary">Confirm</md-button>
+	         <md-button class="md-primary" ng-click="suc.signUp()">Sign Up</md-button>
         </div>
 	</form>
 </div>

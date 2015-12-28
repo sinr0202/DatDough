@@ -6,16 +6,32 @@
  * Controls the Authorization
  */
 
-App.controller('SignInController', ['Authorization', 
-	function(Authorization){
+App.controller('SignInController', ['Auth', '$scope',
+	function(Auth, $scope){
 
 	var vm = this;
 	vm.email = '';
 	vm.password = '';
+	vm.remember = 1
 
 	vm.signIn = function(){
-		Authorization.signIn(vm.email, vm.password);
-		vm.password = '';
+		var credentials = {
+			email: vm.email,
+			password: vm.password,
+			remember_me: vm.remember
+		};
+		var config = {
+			headers: {'X-HTTP-Method-Override': 'POST'}
+		};
+
+		Auth.login(credentials, config)
+		.then(function(){
+			console.log('sign in successful');
+			$scope.$emit('signin')
+		},function(error){
+			alert('sign in unsuccessful');
+			console.log(error);
+		});
 	}
 
 }]);
