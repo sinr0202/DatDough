@@ -16,6 +16,10 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  get '/dashboard', to: 'home#dashboard', as: 'dashboard'
+  get '/signin', to: 'home#signin', as: 'signin'
+  get '/signup', to: 'home#signup', as: 'signup'
+  get '/welcome', to: 'home#welcome', as: 'welcome'
   # get '/user', to: 'home#check', as: 'check'
   # get '/about', to: 'home#about', as: 'about'
   # get '/contact', to: 'home#contact', as: 'contact'
