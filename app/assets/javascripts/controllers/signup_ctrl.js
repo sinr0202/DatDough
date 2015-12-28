@@ -10,5 +10,7 @@
 App.controller('SignUpController', function(){
 
 	var vm = this;
+	vm.errorMsg = '';
+	
 
 });

@@ -1,5 +1,24 @@
-<md-content id="content" ng-controller="SignUpController as cc" layout="row" layout-align="center center" fullheight>
-	<div>
-		<p>Hello Zepp</p>
-	</div>
-</md-content>
+<div id="signup" ng-controller="SignUpController as suc" layout="row" layout-align="center center" fullheight>
+	<form novalidate layout="column" layout-align="space-between center" flex="40">
+		<md-input-container label="Email" class="fullWidth">
+			<label>Email</label>
+			<input ng-model="suc.username" class="md-input ng-touched" required>
+		</md-input-container>		
+		<md-input-container class="fullWidth">
+			<label>Password</label>
+			<input ng-model="suc.password" class="md-input" required>
+		</md-input-container>
+		<md-input-container class="fullWidth">
+			<label>Retype Password</label>
+			<input ng-model="suc.retype_pass" class="md-input" required>
+		</md-input-container>
+
+		<div ng-if="suc.errorMsg">
+			<span class="error-msg">{{suc.errorMsg}}</span>
+		</div>
+
+		<div layout="row" layout-align="end center">
+	         <md-button class="md-primary">Confirm</md-button>
+        </div>
+	</form>
+</div>
