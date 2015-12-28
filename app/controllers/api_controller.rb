@@ -1,10 +1,12 @@
 class ApiController < ApplicationController
 
 	def categories
-		render layout: nil
+		options = Expense.categories.keys
+		render json: options.to_json
 	end
 
 	def paymethods
-		render layout: nil
+		options = Expense.payment_methods.keys
+		render json: options.to_json
 	end
 end
