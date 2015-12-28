@@ -22,10 +22,9 @@ App.controller('SignUpController', ['Auth',
 	        password_confirmation: vm.confirm
 	    };
 	    var config = {
-	        headers: {
-	            'X-HTTP-Method-Override': 'POST'
-	        }
+	        headers: {'X-HTTP-Method-Override': 'POST'},
 	    };
+
 	    Auth.register(credentials, config)
 	    .then(function(registeredUser) {
 	        console.log('sign up successful')

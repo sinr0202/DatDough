@@ -21,7 +21,7 @@ App.controller('SignInController', ['Auth',
 			remember_me: vm.remember
 		};
 		var config = {
-			headers: {'X-HTTP-Method-Override': 'POST'}
+			headers: {'X-HTTP-Method-Override': 'POST'},
 		};
 
 		Auth.login(credentials, config)
