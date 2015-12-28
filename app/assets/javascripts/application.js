@@ -18,5 +18,6 @@
 //= require angular-aria/angular-aria.min
 //= require angular-devise/lib/devise-min
 //= require angular-material/angular-material.min
+//= require angularjs/rails/resource
 //= require app
 //= require_tree .

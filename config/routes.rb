@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get '/signin', to: 'home#signin', as: 'signin'
   get '/signup', to: 'home#signup', as: 'signup'
   get '/welcome', to: 'home#welcome', as: 'welcome'
+  get '/table', to: 'home#table', as: 'table'
+  get '/graph', to: 'home#graph', as: 'graph'
+
   # get '/user', to: 'home#check', as: 'check'
   # get '/about', to: 'home#about', as: 'about'
   # get '/contact', to: 'home#contact', as: 'contact'

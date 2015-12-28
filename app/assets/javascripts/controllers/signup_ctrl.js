@@ -6,12 +6,11 @@
  * Controls the Sign up page
  */
 
-
-App.controller('SignUpController', ['Auth', '$scope',
-	function(Auth, $scope){
+App.controller('SignUpController', ['Auth',
+	function(Auth){
 
 	var vm = this;
-	vm.errorMsg = '';
+	vm.errors = '';
 	vm.email = '';
 	vm.password = '';
 	vm.confirm = '';
@@ -27,12 +26,12 @@ App.controller('SignUpController', ['Auth', '$scope',
 	            'X-HTTP-Method-Override': 'POST'
 	        }
 	    };
-	    Auth.register(credentials, config).then(function(registeredUser) {
+	    Auth.register(credentials, config)
+	    .then(function(registeredUser) {
 	        console.log('sign up successful')
-	        $scope.$emit('signup')
 	    }, function(error) {
 	    	alert('sign up unsuccessful')
-	    	vm.errorMsg = error.data.errors
+	    	vm.errors = error.data.errors
 	    	console.log(error)
 	    });
 	}

@@ -14,9 +14,13 @@
                         <i title="Settings" class="material-icons">settings</i>
                         <span>Settings</span>
                     </div>
-                    <div class="StatsBtn" layout="row" layout-align="center center">
-                        <i title="Stats" class="material-icons">assessment</i>
-                        <span>Stats</span>
+                    <div class="TableBtn" ng-click="tb.selectView(4)" layout="row" layout-align="center center">
+                        <i title="Table" class="material-icons">assessment</i>
+                        <span>Table</span>
+                    </div>
+                    <div class="GraphBtn" ng-click="tb.selectView(5)" layout="row" layout-align="center center">
+                        <i title="Graph" class="material-icons">assessment</i>
+                        <span>Graph</span>
                     </div>
                     <div class="signOutBtn" ng-click="tb.signOut()" layout="row" layout-align="center center">
                         <i title="Sign Out" class="material-icons">exit_to_app</i>
@@ -37,7 +41,6 @@
             
         </div>
     </md-toolbar>
-    <p>{{tb.isSignedIn}}</p>
     <!-- Content -->
     <div flex="90" ng-include="tb.template" fullheight></div>
 </body>

@@ -13,8 +13,11 @@
 			<input ng-model="suc.confirm" class="md-input" required>
 		</md-input-container>
 
-		<div ng-if="suc.errorMsg">
-			<span class="error-msg">{{suc.errorMsg}}</span>
+		<div ng-if="suc.errors">
+			<p class="error-msg" ng-repeat="(field, error) in suc.errors">
+				<span>{{field}}:</span>
+				<span ng-repeat="err in error">{{err}}</span>
+			</p>
 		</div>
 
 		<div layout="row" layout-align="end center">

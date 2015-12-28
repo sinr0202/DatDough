@@ -14,9 +14,10 @@ App.controller('ToolbarController', ['Auth', '$scope',
 	var templates = [{name: 'welcome', url: 'welcome'},
                     {name: 'signIn', url: 'signin'},
                     {name: 'signUp', url: 'signup'},
-                    {name: 'dashboard', url: 'dashboard'}];
+                    {name: 'dashboard', url: 'dashboard'},
+                    {name: 'table', url: 'table'},
+                    {name: 'graph', url: 'graph'}];
     vm.template = templates[0].url;
-
     vm.isSignedIn = false
 
     Auth.currentUser()
@@ -38,8 +39,6 @@ App.controller('ToolbarController', ['Auth', '$scope',
             }
         };
         Auth.logout(config).then(function(oldUser) {
-            vm.isSignedIn = false
-            vm.selectView(0)
             console.log('sign out successful')
             alert("you're signed out now.");
         }, function(error) {
@@ -48,16 +47,24 @@ App.controller('ToolbarController', ['Auth', '$scope',
         });
     }
 
-    $scope.$on('signin', function(event, args){
+    $scope.$on('devise:login', function(event, args){
         console.log('signed in, showing dashboard')
         vm.isSignedIn = true
         vm.selectView(3)
     })
 
-    $scope.$on('signup', function(event, args){
+    $scope.$on('devise:new-registration', function(event, args){
         console.log('signed up, showing dashboard')
         vm.isSignedIn = true
         vm.selectView(3)
     })
+
+    $scope.$on('devise:logout', function(event, args){
+        console.log('signed out, showing welcome')
+        vm.isSignedIn = false
+        vm.selectView(0)
+    })
+
+
 
 }]);

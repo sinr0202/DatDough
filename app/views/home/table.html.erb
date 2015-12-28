@@ -1,0 +1,24 @@
+<table ng-controller="TableController as tc">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>&nbsp;&nbsp;&nbsp;&nbsp;Amount</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Transaction type</th>
+      <th>Payment method</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="expense in tc.expenses | orderBy: ['date','created_at']:true track by $index">
+      <td>{{expense.date | date: 'MMM/d'}}</td>
+      <td>{{expense.amount | currency}}</td>
+      <td>{{expense.category}}</td>
+      <td>{{expense.description | limitTo: 15 }}</a></td>
+      <td>{{expense.transaction_type}}</td>
+      <td>{{expense.payment_method}}</td>
+      <td><p ng-click="tc.edit($index)">**</a></td>
+    </tr>
+  </tbody>
+</table>

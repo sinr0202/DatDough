@@ -6,8 +6,8 @@
  * Controls the Authorization
  */
 
-App.controller('SignInController', ['Auth', '$scope',
-	function(Auth, $scope){
+App.controller('SignInController', ['Auth',
+	function(Auth){
 
 	var vm = this;
 	vm.email = '';
@@ -27,7 +27,6 @@ App.controller('SignInController', ['Auth', '$scope',
 		Auth.login(credentials, config)
 		.then(function(){
 			console.log('sign in successful');
-			$scope.$emit('signin')
 		},function(error){
 			alert('sign in unsuccessful');
 			console.log(error);

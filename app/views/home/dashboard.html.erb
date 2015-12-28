@@ -1,5 +1,35 @@
 <md-content id="content" ng-controller="DashboardController as dbc" layout="row" layout-align="center center" fullheight>
-	<div>
-		<p>My Dashboard</p>
+	<div id="login" layout="row" layout-align="center center" fullheight>
+		<form novalidate layout="column" layout-align="space-between center" flex="40">
+			<md-input-container label="Date" class="fullWidth">
+				<label>Date</label>
+				<input ng-model="dbc.expense.date" class="md-input ng-touched" type="date" name="date" required>
+			</md-input-container>
+			<md-input-container label="Amount" class="fullWidth">
+				<label>Amount</label>
+				<input ng-model="dbc.expense.amount" class="md-input" type="number" name="amount" step="0.01" placeholder="9.99" required>
+			</md-input-container>
+			<md-input-container label="Category" class="fullWidth">
+				<label>Category</label>
+                <%= select_tag :category, options_for_select(Expense.categories.keys.to_a), {data: {'ng-model' => 'dbc.expense.category'}, required: true} %>
+			</md-input-container>
+			<md-input-container label="Payment Method" class="fullWidth">
+				<label>Payment Method</label>
+                <%= select_tag :payment_method, options_for_select(Expense.payment_methods.keys.to_a), {data: {'ng-model' => 'dbc.expense.payment_method', required: true}}%>
+			</md-input-container>
+			<md-input-container label="Description" class="fullWidth">
+				<label>Description</label>
+                <textarea name="description" row="3" placeholder="foodie fruitie" ng-model="dbc.expense.description" required></textarea>
+			</md-input-container>
+
+			<div ng-if="dbc.errors">
+				<span class="error-msg">{{dbc.errors}}</span>
+			</div>
+			<div layout="row" layout-align="space-between center">
+				<md-button class="md-primary" ng-click="dbc.cancel()">Cancel</md-button>
+				<md-button class="md-primary" ng-click="dbc.submit()">Submit</md-button>
+			</div>
+			<span class="forgotPass">Forgot password?</span>
+		</form>
 	</div>
 </md-content>

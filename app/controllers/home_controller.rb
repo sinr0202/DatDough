@@ -16,4 +16,11 @@ class HomeController < ApplicationController
 		render layout: nil
 	end
 
+	def table
+		render layout: nil
+	end
+
+	def graph
+		render layout: nil
+	end
 end
