@@ -7,10 +7,15 @@
 	.logo {
 		color: red;
 		font-weight:bold;
+		cursor: pointer;
 
 		sub {
 			font-size: 10px;
 			font-weight: normal;
+		}
+
+		&:hover {
+			font-size: 25px;
 		}
 	}
 

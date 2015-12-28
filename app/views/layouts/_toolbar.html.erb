@@ -3,20 +3,21 @@
     <div class="md-toolbar-tools header" ng-controller="ToolbarController as tb">
 
         <div layout="row" layout-align="start start" flex="15">
-            <H1 class="logo" id="name">DatDough
+            <h1 class="logo" id="name">DatDough
             	<sub title="version">v0.0.0</sub>
-            </H1>
+            </h1>
         </div>
 
         <span flex></span>
 
         <div class="icon-container" layout="row" layout-align="end center">
-        	<div ng-show="false">
+        	<div ng-show="tb.isLoggedIn">
 	        	<i title="Settings" class="material-icons">settings</i>
 	        	<i title="Stats" class="material-icons">assessment</i>
 	            <i title="Logout" class="material-icons">exit_to_app</i>
 	        </div>
-	        <div ng-show="true">
+	        <div ng-show="!tb.isLoggedIn">
+                <i title="Sign Up" class="material-icons">create</i>
 	        	<i title="Sign In" class="material-icons">exit_to_app</i>
 	        </div>
         </div>

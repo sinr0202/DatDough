@@ -1,5 +1,9 @@
 App.factory('Authorization', function(Auth){
 	return {
+
+		isSignedIn : function(){
+			return Auth.isAuthenticated();
+		},
     	signIn : function(email, password){
 			var credentials = {
 			    email: email,
