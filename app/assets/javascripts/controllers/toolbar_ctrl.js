@@ -11,12 +11,12 @@ App.controller('ToolbarController', ['Auth', '$scope',
 	function(Auth, $scope){
 
 	var vm = this;
-	var templates = [{name: 'welcome', url: 'welcome'},
-                    {name: 'signIn', url: 'signin'},
-                    {name: 'signUp', url: 'signup'},
-                    {name: 'dashboard', url: 'dashboard'},
-                    {name: 'table', url: 'table'},
-                    {name: 'graph', url: 'graph'}];
+	var templates = [{name: 'welcome', url: 'welcome', signin: false},
+                    {name: 'signIn', url: 'signin', signin: false},
+                    {name: 'signUp', url: 'signup', signin: false},
+                    {name: 'dashboard', url: 'dashboard', signin: true},
+                    {name: 'table', url: 'table', signin: true},
+                    {name: 'graph', url: 'graph', signin: true}];
     vm.template = templates[0].url;
     vm.isSignedIn = false
 
@@ -27,8 +27,14 @@ App.controller('ToolbarController', ['Auth', '$scope',
         console.log('not authenticated yet')
     });
 
-
     vm.selectView = function(index){
+        if (vm.isSignedIn != templates[index].signin){
+            if(vm.isSignedIn){
+                index = 3
+            } else {
+                index = 0
+            }
+        }
         vm.template = templates[index].url;
     };
 

@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   get '/table', to: 'home#table', as: 'table'
   get '/graph', to: 'home#graph', as: 'graph'
 
+  scope '/api' do
+    get '/categories', to: 'api#categories', as: 'categories'
+    get '/paymethods', to: 'api#paymethods', as: 'paymethods'
+  end
+
   # get '/user', to: 'home#check', as: 'check'
   # get '/about', to: 'home#about', as: 'about'
   # get '/contact', to: 'home#contact', as: 'contact'
