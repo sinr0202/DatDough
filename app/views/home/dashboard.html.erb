@@ -10,11 +10,17 @@
 		</md-input-container>
 		<md-input-container label="Category" class="fullWidth">
 			<label>Category</label>
-            <%= select_tag :category, options_for_select(Expense.categories.keys.to_a), {data: {'ng-model' => 'dbc.expense.category'}, required: true} %>
+			<md-select ng-model="dbc.expense.category">
+				<md-option ng-value="category" ng-repeat="category in dbc.categories">
+				{{category}}</md-option>
+			</md-select>
 		</md-input-container>
 		<md-input-container label="Payment Method" class="fullWidth">
 			<label>Payment Method</label>
-            <%= select_tag :payment_method, options_for_select(Expense.payment_methods.keys.to_a), {data: {'md-select' => '', 'ng-model' => 'dbc.expense.payment_method', required: true}}%>
+            <md-select ng-model="dbc.expense.payment_method">
+				<md-option ng-value="method" ng-repeat="method in dbc.paymethod">
+				{{method}}</md-option>
+			</md-select>
 		</md-input-container>
 		<md-input-container label="Description" class="fullWidth">
 			<label>Description</label>

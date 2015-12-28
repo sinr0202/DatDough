@@ -15,13 +15,17 @@ App.controller('DashboardController', ['Expense', 'Options',
 	//ON LOAD
 	Options.getCategory()
 	.then(function(data){
-		console.log(data);
 		vm.categories = data;
-		console.log(vm.categories);
 	}, function(){
-		alert("there is an issue");
+		alert("Can't retrieve category");
 	});
 
+	Options.getPaymentMethod()
+	.then(function(data){
+		vm.paymethod = data;
+	}, function(){
+		alert("Can't retrieve paymethod");
+	});
 
 	vm.new = function(){
 		vm.expense = {
