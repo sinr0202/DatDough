@@ -3,9 +3,7 @@
         <div class="md-toolbar-tools">
 
             <div layout="row" layout-align="start start" flex="15">
-                <h1 class="logo" id="name" ng-click="tb.selectView(0)">DatDough
-                	<sub title="version">v0.0.0</sub>
-                </h1>
+                <h1 class="logo" ng-click="tb.selectView(0)">DatDough</h1>
             </div>
 
             <span flex></span>
@@ -16,8 +14,15 @@
     	        	<i title="Stats" class="material-icons">assessment</i>
     	            <i title="Logout" class="material-icons">exit_to_app</i>
     	        </div>
-    	        <div ng-show="!tb.isLoggedIn">
-    	        	<i title="Sign In" ng-click="tb.selectView(1)" class="material-icons">exit_to_app</i>
+    	        <div ng-show="!tb.isLoggedIn" layout="row">
+                    <div class="signUpBtn" ng-click="tb.selectView(2)" layout="row" layout-align="center center">
+                        <i title="Sign Up" class="material-icons">create</i>
+                        <span>Sign Up</span>
+                    </div>
+                    <div class="signInBtn" ng-click="tb.selectView(1)" layout="row" layout-align="center center">
+    	        	    <i title="Sign In" class="material-icons">exit_to_app</i>
+                        <span>Sign In</span>
+                    </div>
     	        </div>
             </div>
             

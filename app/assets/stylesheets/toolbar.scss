@@ -9,11 +9,6 @@
 		font-weight:bold;
 		cursor: pointer;
 
-		sub {
-			font-size: 10px;
-			font-weight: normal;
-		}
-
 		&:hover {
 			font-size: 25px;
 		}
@@ -21,13 +16,22 @@
 
 	.icon-container {
 		color: rgba(255,255,255,0.7);
+		font-size: 15px;
 
-		i {
+		.signUpBtn {
 			cursor: pointer;
-			margin-left: 10px;
+			margin-right: 10px;
 
 			&:hover {
-				color:rgba(255,255,255,1);
+				color: rgba(255,255,255,1);
+			}
+		}
+
+		.signInBtn {
+			cursor: pointer;
+
+			&:hover {
+				color: rgba(255,255,255,1);
 			}
 		}
 
