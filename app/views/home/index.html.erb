@@ -1,28 +1,29 @@
-<md-toolbar id="toolbar" flex="10">
-    <div class="md-toolbar-tools header" ng-controller="ToolbarController as tb">
+<body class="noScrollbar" layout="column" ng-controller="ToolbarController as tb">
+    <md-toolbar id="toolbar" flex="10">
+        <div class="md-toolbar-tools">
 
-        <div layout="row" layout-align="start start" flex="15">
-            <h1 class="logo" id="name" ng-click="selectView(0)">DatDough
-            	<sub title="version">v0.0.0</sub>
-            </h1>
+            <div layout="row" layout-align="start start" flex="15">
+                <h1 class="logo" id="name" ng-click="tb.selectView(0)">DatDough
+                	<sub title="version">v0.0.0</sub>
+                </h1>
+            </div>
+
+            <span flex></span>
+
+            <div class="icon-container" layout="row" layout-align="end center">
+            	<div ng-show="tb.isLoggedIn">
+    	        	<i title="Settings" class="material-icons">settings</i>
+    	        	<i title="Stats" class="material-icons">assessment</i>
+    	            <i title="Logout" class="material-icons">exit_to_app</i>
+    	        </div>
+    	        <div ng-show="!tb.isLoggedIn">
+    	        	<i title="Sign In" ng-click="tb.selectView(1)" class="material-icons">exit_to_app</i>
+    	        </div>
+            </div>
+            
         </div>
+    </md-toolbar>
 
-        <span flex></span>
-
-        <div class="icon-container" layout="row" layout-align="end center">
-        	<div ng-show="tb.isLoggedIn">
-	        	<i title="Settings" class="material-icons">settings</i>
-	        	<i title="Stats" class="material-icons">assessment</i>
-	            <i title="Logout" class="material-icons">exit_to_app</i>
-	        </div>
-	        <div ng-show="!tb.isLoggedIn">
-                <i title="Sign Up" ng-click="selectView(2)" class="material-icons">create</i>
-	        	<i title="Sign In" ng-click="selectView(1)" class="material-icons">exit_to_app</i>
-	        </div>
-        </div>
-        
-    </div>
-</md-toolbar>
-
-<!-- Content -->
-<ng-include flex="90" src="'welcome'" fullHeight></ng-include>
+    <!-- Content -->
+    <div flex="90" ng-include="tb.template" fullheight></div>
+</body>

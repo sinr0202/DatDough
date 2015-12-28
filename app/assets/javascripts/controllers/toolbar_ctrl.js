@@ -7,8 +7,8 @@
  */
 
 
-App.controller('ToolbarController', ['Authorization', '$scope',
-	function(Authorization, $scope){
+App.controller('ToolbarController', ['Authorization',
+	function(Authorization){
 
 	var vm = this;
 
@@ -23,11 +23,10 @@ App.controller('ToolbarController', ['Authorization', '$scope',
 
     //On load
     vm.template = templates[0].url;
-    console.log(vm.template);
 
     // //Change on view click
    	vm.selectView = function(index){
-        $scope.template = templates[index].url;
+        vm.template = templates[index].url;
     };
 
 
