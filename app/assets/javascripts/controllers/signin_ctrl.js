@@ -6,7 +6,7 @@
  * Controls the Authorization
  */
 
-App.controller('LoginController', ['Authorization', 
+App.controller('SignInController', ['Authorization', 
 	function(Authorization){
 
 	var vm = this;

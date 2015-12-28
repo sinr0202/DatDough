@@ -1,21 +1,21 @@
-<div id="login" ng-controller="LoginController as lc" layout="row" layout-align="center center" fullheight>
+<div id="login" ng-controller="SignInController as sic" layout="row" layout-align="center center" fullheight>
 	<form novalidate layout="column" layout-align="space-between center" flex="40">
 		<md-input-container label="Email" class="fullWidth">
 			<label>Email</label>
-			<input ng-model="lc.email" class="md-input ng-touched" required>
+			<input ng-model="sic.email" class="md-input ng-touched" required>
 		</md-input-container>		
 		<md-input-container class="fullWidth">
 			<label>Password</label>
-			<input ng-model="lc.password" class="md-input" type="password" required>
+			<input ng-model="sic.password" class="md-input" type="password" required>
 		</md-input-container>
 
-		<div ng-if="lc.errorMsg">
-			<span class="error-msg">{{lc.errorMsg}}</span>
+		<div ng-if="sic.errorMsg">
+			<span class="error-msg">{{sic.errorMsg}}</span>
 		</div>
 
 		<span class="forgotPass">Forgot password?</span>
 		<div layout="row" layout-align="space-between center">
-			<md-button class="md-primary" ng-click="lc.signIn()">Login</md-button>
+			<md-button class="md-primary" ng-click="sic.signIn()">Login</md-button>
 		<md-button class="md-primary">Sign Up</md-button>
         </div>
 	</form>
