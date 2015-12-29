@@ -8,9 +8,32 @@ class Expense < ActiveRecord::Base
   scope :transferred_before, ->(date) { where("date <= ?", date) }
   scope :transferred_after, ->(date) { where("date >= ?", date) }
   
-  validates :user, :date, :amount, :description, presence: true
+  validates :user,
+            :date,
+            :amount,
+            :description,
+            :category,
+            :payment_method,
+            :transaction_type, presence: true
+
   #reduce category
-  enum category: [:work, :sales, :rebate, :other_income, :groceries, :dining, :living, :leisure, :electronics, :health, :fashion, :education, :service, :donation, :transportation, :automobile, :parking]
+  enum category: [:work, 
+                  :sales, 
+                  :rebate, 
+                  :other_income, 
+                  :groceries, 
+                  :dining, 
+                  :living, 
+                  :leisure, 
+                  :electronics, #rid
+                  :health, 
+                  :fashion, #rid
+                  :education, 
+                  :service, 
+                  :donation, 
+                  :transportation, # put automobile and parking in transportation 
+                  :automobile, 
+                  :parking]
   enum payment_method: [:cash, :debit, :credit, :cryptocoin, :cheque]
   enum transaction_type: [:income, :expense]
 

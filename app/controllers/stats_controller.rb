@@ -40,13 +40,29 @@ class StatsController < ApplicationController
 
   def category
     if (params[:start_date].nil? || params[:start_date].empty?) && (params[:end_date].nil? || params[:end_date].empty?)
-      category_hash = Expense.where(user: current_user).group(:category).order(category: :asc).sum(:amount)
+      category_hash = Expense.where(user: current_user)
+                      .group(:category)
+                      .order(category: :asc)
+                      .sum(:amount)
     elsif !params[:start_date].empty? && params[:end_date].empty?
-      category_hash = Expense.where(user: current_user).transferred_after(params[:start_date]).group(:category).order(category: :asc).sum(:amount)
+      category_hash = Expense.where(user: current_user)
+                      .transferred_after(params[:start_date])
+                      .group(:category)
+                      .order(category: :asc)
+                      .sum(:amount)
     elsif params[:start_date].empty? && !params[:end_date].empty?
-      category_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).group(:category).order(category: :asc).sum(:amount)
+      category_hash = Expense.where(user: current_user)
+                      .transferred_before(params[:end_date])
+                      .group(:category)
+                      .order(category: :asc)
+                      .sum(:amount)
     else
-      category_hash = Expense.where(user: current_user).transferred_before(params[:end_date]).transferred_after(params[:start_date]).group(:category).order(category: :asc).sum(:amount)
+      category_hash = Expense.where(user: current_user)
+                      .transferred_before(params[:end_date])
+                      .transferred_after(params[:start_date])
+                      .group(:category)
+                      .order(category: :asc)
+                      .sum(:amount)
     end
 
     categories = Expense.categories
@@ -111,7 +127,33 @@ class StatsController < ApplicationController
       end
     end
 
-    render json: {net: net_hash, expense: expense_hash, income: income_hash, avg_expense: avg_expense_hash, avg_income: avg_income_hash}, status: :ok
+    result = {net: net_hash,
+             expense: expense_hash,
+             income: income_hash,
+             avg_expense: avg_expense_hash,
+             avg_income: avg_income_hash}
+
+    render json: result, status: :ok
+  end
+
+  def most
+    date = Date.today - 300
+    limit = 3
+    
+    expenses = Expense.where(user: current_user).transferred_after(date)
+
+    categories = expenses.group(:category)
+                .order('count_id desc')
+                .count(:id)
+                .map{|k,v|[Expense.categories.key(k),v]}.first(limit).to_h
+    paymethods = expenses.group(:payment_method)
+                .order('count_id desc')
+                .count(:id)
+                .map{|k,v|[Expense.payment_methods.key(k),v]}.first(limit).to_h
+    descriptions = expenses.group(:description)
+                .order('count_id desc')
+                .count(:id).first(limit).to_h
+    render json: {categories: categories, paymethods: paymethods, descriptions: descriptions}
   end
 
   private 
