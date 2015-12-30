@@ -8,13 +8,13 @@ Rails.application.routes.draw do
       get '/category', to: 'stats#category'
       get '/daily', to: 'stats#daily'
       get '/monthly', to: 'stats#monthly'
-      get '/net', to: 'stats#net'
       get '/most', to: 'stats#most'
     end
   
     get '/dashboard', to: 'home#dashboard', as: 'dashboard'
     get '/table', to: 'home#table', as: 'table'
     get '/graph', to: 'home#graph', as: 'graph'
+    get '/setting', to: 'home#setting', as: 'setting'
     
     # csv import
     get '/import', to: 'import#new', as: 'import'

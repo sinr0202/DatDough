@@ -1,5 +1,5 @@
 <md-content id="dashboard" ng-controller="DashboardController as dbc" layout="row" layout-align="center center" fullheight>
-	<form novalidate layout="column" layout-align="space-between center" flex="50">
+	<form name="dbc.expenseForm" novalidate layout="column" layout-align="space-between center" flex="50">
 		<md-input-container label="Date" class="fullWidth">
 			<label>Date</label>
 			<input ng-model="dbc.expense.date" class="md-input ng-touched" type="date" name="date" required>

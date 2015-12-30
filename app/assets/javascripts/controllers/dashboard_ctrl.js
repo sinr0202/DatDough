@@ -17,14 +17,14 @@ App.controller('DashboardController', ['Expense', 'Options',
 	.then(function(data){
 		vm.categories = data;
 	}, function(){
-		alert("Can't retrieve category");
+		alert("category retrieval unsuccessful");
 	});
 
 	Options.getPaymentMethod()
 	.then(function(data){
 		vm.paymethod = data;
 	}, function(){
-		alert("Can't retrieve paymethod");
+		alert("paymethod retrieval unsuccessful");
 	});
 
 	vm.new = function(){
@@ -40,10 +40,11 @@ App.controller('DashboardController', ['Expense', 'Options',
 	}
 
 	vm.submit = function(){
-		console.log(vm.expense)
 		new Expense(vm.expense).create()
 		.then(function(data){
 			alert('submission successful');
+			vm.new()
+			vm.expenseForm.$setUntouched()
 		}, function(error){
 			alert('submission unsuccessful')
 		})

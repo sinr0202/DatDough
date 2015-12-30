@@ -19,5 +19,7 @@
 //= require angular-devise/lib/devise-min
 //= require angular-material/angular-material.min
 //= require angularjs/rails/resource
+//= require d3.v3
+//= require nv.d3
 //= require app
 //= require_tree .

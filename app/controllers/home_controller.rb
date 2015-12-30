@@ -23,4 +23,8 @@ class HomeController < ApplicationController
 	def graph
 		render layout: nil
 	end
+
+	def setting
+		render layout: nil
+	end
 end

@@ -16,7 +16,9 @@ App.controller('ToolbarController', ['Auth', '$scope',
                     {name: 'signUp', url: 'signup', signin: false},
                     {name: 'dashboard', url: 'dashboard', signin: true},
                     {name: 'table', url: 'table', signin: true},
-                    {name: 'graph', url: 'graph', signin: true}];
+                    {name: 'graph', url: 'graph', signin: true},
+                    {name: 'setting', url: 'setting', signin: true},
+                    {name: 'import', url: 'import', signin: true}];
     vm.template = templates[0].url;
     vm.isSignedIn = false
 

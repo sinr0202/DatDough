@@ -1,7 +1,8 @@
-<div class="container">
+<div>
   <h2>Import Data</h2>
   <label>Required Format</label>
   <pre>date,description,amount
+  NEEDS TO BE UPDATED!
 2014-09-30,ebay,-7.4
 ...
 2015-04-26,rent,-365
@@ -10,13 +11,13 @@
 2015-04-28,second cup,-2.9</pre>
 
   <%= form_tag import_csv_path, multipart: true do %>
-    <div class="field form-group">
+    <div>
       <label>CSV</label>
-      <%= file_field_tag :file, class: "form-control" %>
+      <%= file_field_tag :file %>
     </div>
 
-    <div class="actions form-group">
-      <%= submit_tag "Import", class: "btn btn-default" %>
+    <div>
+      <%= submit_tag "Import"%>
     </div>
   <% end %>
 </div>

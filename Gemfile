@@ -47,6 +47,7 @@ gem 'will_paginate'
 gem 'material_icons'
 gem 'angularjs-rails-resource'
 gem 'angular_rails_csrf'
+gem 'novus-nvd3-rails'
 source "https://rails-assets.org" do
   gem "rails-assets-angular-devise"
 end
