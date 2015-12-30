@@ -1,13 +1,13 @@
 'use strict'
 
 /*
- * THE TOOLBAR CONTROLLER
+ * THE FRAME CONTROLLER
  * ------------------------------------
- * Controls the ToolBar
+ * Controls the Frame
  */
 
 
-App.controller('ToolbarController', ['Auth', '$scope',
+App.controller('FrameController', ['Auth', '$scope',
 	function(Auth, $scope){
 
 	var vm = this;
@@ -17,7 +17,7 @@ App.controller('ToolbarController', ['Auth', '$scope',
                     {name: 'dashboard', url: 'dashboard', signin: true},
                     {name: 'table', url: 'table', signin: true},
                     {name: 'graph', url: 'graph', signin: true},
-                    {name: 'setting', url: 'setting', signin: true},
+                    {name: 'settings', url: 'settings', signin: true},
                     {name: 'import', url: 'import', signin: true}];
     vm.template = templates[0].url;
     vm.isSignedIn = false

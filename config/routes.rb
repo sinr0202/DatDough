@@ -1,8 +1,20 @@
 Rails.application.routes.draw do
 
   authenticated :user do                   
+  
+    # authenticated api
     get '/expenses', to: 'expenses#index', as: 'expense'
+
+    # html partials
+    get '/dashboard', to: 'home#dashboard', as: 'dashboard'
+    get '/table', to: 'home#table', as: 'table'
+    get '/graph', to: 'home#graph', as: 'graph'
+    get '/settings', to: redirect('/users/edit')
     
+    # csv import
+    get '/import', to: 'import#new', as: 'import'
+    post '/import', to: 'import#csv', as: 'import_csv'
+
     # statistics
     scope '/stats' do
       get '/category', to: 'stats#category'
@@ -10,18 +22,9 @@ Rails.application.routes.draw do
       get '/monthly', to: 'stats#monthly'
       get '/most', to: 'stats#most'
     end
-  
-    get '/dashboard', to: 'home#dashboard', as: 'dashboard'
-    get '/table', to: 'home#table', as: 'table'
-    get '/graph', to: 'home#graph', as: 'graph'
-    get '/setting', to: 'home#setting', as: 'setting'
-    
-    # csv import
-    get '/import', to: 'import#new', as: 'import'
-    post '/import', to: 'import#csv', as: 'import_csv'
   end 
 
-  root 'home#index'
+  root 'home#frame'
 
   get '/welcome', to: 'home#welcome', as: 'welcome'
   get '/signin', to: 'home#signin', as: 'signin'

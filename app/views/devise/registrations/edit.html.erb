@@ -1,43 +1,35 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Edit User</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field form-group">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, class: "form-control" %>
+<form name="userSettings" novalidate>  
+  <div>
+    <label>Email</label><br />
+    <input autofocus="autofocus" class="form-control" type="email" value="test@example.com" name="user[email]" id="user_email" />
   </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
 
-  <div class="field form-group">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+  <div>
+    <label>Password</label><i>(leave blank if you don't want to change it)</i><br />
+    <input autocomplete="off" class="form-control" type="password" name="user[password]" id="user_password" />
   </div>
 
-  <div class="field form-group">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+  <div>
+    <label>Password confirmation</label><br />
+    <input autocomplete="off" class="form-control" type="password" name="user[password_confirmation]" id="user_password_confirmation" />
   </div>
 
-  <div class="field form-group">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+  <div>
+    <label>Current password</label> <i>(we need your current password to confirm your changes)</i><br />
+    <input autocomplete="off" class="form-control" type="password" name="user[current_password]" id="user_current_password" />
   </div>
 
   <div class="actions form-group">
-    <%= f.submit "Update", class: "btn btn-default"%>
+    <input type="submit" name="commit" value="Update" class="btn btn-default" />
   </div>
-<% end %>
+</form>
+<h3>Import CSV</h3>
+
+<button ng-click="fc.selectView(7)">IMPORT</button>
 
 <h3>Cancel my account</h3>
 
-<p>All your data will be lost. <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %></p>
-
-<%= link_to "Back", :back %>
-
-<script>
-  $('#layout').attr('class','container');
-</script>
+<p>All your data will be lost. <form class="button_to" method="post" action="/users"><input type="hidden" name="_method" value="delete" /><input data-confirm="Are you sure?" class="btn btn-danger" type="submit" value="Cancel my account" /><input type="hidden" name="authenticity_token" value="wMgbrz6vqDQSW4E3/gwQhy/LeyFj2Qv/BhSD1KqAAe6ZB3DqI77NtVJuSquP4NYNrK+0HDSF+mxmRhsbkEKVvA==" /></form></p>

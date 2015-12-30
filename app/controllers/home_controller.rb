@@ -24,7 +24,4 @@ class HomeController < ApplicationController
 		render layout: nil
 	end
 
-	def setting
-		render layout: nil
-	end
 end

@@ -1,9 +1,9 @@
 'use strict'
 
 /*
- * THE DASHBOARD CONTROLLER
+ * THE GRAPH CONTROLLER
  * ------------------------------------
- * Controls the DashBoard
+ * Controls the Graph
  */
 
 App.controller('GraphController', ['$http', 

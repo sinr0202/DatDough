@@ -94,15 +94,17 @@ class StatsController < ApplicationController
 
   def daily_net(group_by)
     expenses = current_user.expenses
-    if (params[:start_date].nil? || params[:start_date].empty?) && (params[:end_date].nil? || params[:end_date].empty?)
+    start_date = params[:start_date]
+    end_date = params[:end_date]
+    if (start_date.nil? || start_date.empty?) && (end_date.nil? || end_date.empty?)
       daily_hash = expenses
-    elsif !params[:start_date].empty? && params[:end_date].empty?
-      daily_hash = expenses.transferred_after(params[:start_date])
-    elsif params[:start_date].empty? && !params[:end_date].empty?
-      daily_hash = expenses.transferred_before(params[:end_date])
+    elsif !start_date.empty? && end_date.empty?
+      daily_hash = expenses.transferred_after(start_date)
+    elsif start_date.empty? && !end_date.empty?
+      daily_hash = expenses.transferred_before(end_date)
     else
-      daily_hash = expenses.transferred_before(params[:end_date])
-                           .transferred_after(params[:start_date])
+      daily_hash = expenses.transferred_before(end_date)
+                           .transferred_after(start_date)
     end
 
     return daily_hash.group(group_by).order(group_by => :asc).sum(:amount)
