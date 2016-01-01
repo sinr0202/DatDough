@@ -1,5 +1,9 @@
 
-window.App = angular.module('DatDoughApp', ['ngMaterial', 'Devise','rails'])
+window.App = angular.module('DatDoughApp', 
+	['ngMaterial', 
+	'Devise', 
+	'rails',
+	'ngFileUpload'])
 	.config(function(AuthProvider, AuthInterceptProvider) {
 			// Configure Auth service with AuthProvider
 			// blank to use default

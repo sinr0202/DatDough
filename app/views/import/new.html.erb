@@ -1,23 +1,24 @@
-<div>
+<div ng-controller="ImportController as ic">
   <h2>Import Data</h2>
+
+  <% if @Sucess %><p>Import successful</p><% end %>
+  <% if @error %><p>Error:<%= @error %></p><% end %>
+
   <label>Required Format</label>
-  <pre>date,description,amount
-  NEEDS TO BE UPDATED!
-2014-09-30,ebay,-7.4
+  <pre>date,description,amount,category,payment_method
+2014-09-30,ebay,-7.4,living,credit
 ...
-2015-04-26,rent,-365
-2015-04-27,subway,-11.8
-2015-04-27,chinese food,-15
-2015-04-28,second cup,-2.9</pre>
+2015-04-26,rent,-365,living,cash
+2015-04-27,subway,-11.8,dining,cash
+2015-04-27,chinese food,-15,dining,cash
+2015-04-28,second cup,-2.9,leisure,cash</pre>
+<form name="uploadForm">
+  <input type="file" ngf-select ng-model="ic.csvFile" required>
+  <p ng-show="ic.upLoading">Upoading..</p>
+  <p ng-show="ic.processed && !ic.uploading">Uploading Complete!</p>
+  <p ng-show="ic.loading">Loading..</p>
+  <p ng-show="ic.processed && !ic.loading">Loading Complete!</p>
+  <button ng-click="ic.submit()">Submit</button>
+</form>
 
-  <%= form_tag import_csv_path, multipart: true do %>
-    <div>
-      <label>CSV</label>
-      <%= file_field_tag :file %>
-    </div>
-
-    <div>
-      <%= submit_tag "Import"%>
-    </div>
-  <% end %>
 </div>
