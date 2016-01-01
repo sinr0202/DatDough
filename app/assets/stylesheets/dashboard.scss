@@ -1,15 +1,17 @@
 //DashBoard CSS
+@import "mixins";
 
 #FinanceStats {
 
-	.search-bar {
-	  text-decoration: underline;
-	  margin-left: 15px;
-	  font-style: italic;
-	}
+	@include transition(all 0.3s ease);
 
-	.searchlbl {
-		margin-top: 25px;
+	i {
+		color: rgba(0,0,0,0.4);
+		cursor: pointer;
+
+		&:hover {
+			color: rgba(0,0,0,1);
+		}
 	}
 
 	.tableSection {

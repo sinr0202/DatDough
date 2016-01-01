@@ -12,6 +12,11 @@ App.controller('TableController', ['Expense',
 	var vm = this;
 	vm.page = 1;
 	vm.expenses = [];
+	vm.showSearch = false;
+
+	vm.searchToggle = function(){
+		vm.showSearch = !vm.showSearch;
+	};
 
 	vm.loadNextExpense = function(){
 		Expense.query({page: vm.page})

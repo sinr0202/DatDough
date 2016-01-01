@@ -1,8 +1,10 @@
 //Frame CSS
+@import "mixins";
 
 #toolbar {
 	background: black;
 	z-index: 100;
+	@include box-shadow(-2px 0px 5px 0px rgba(0,0,0,0.75));
 
 	.logo {
 		color: red;

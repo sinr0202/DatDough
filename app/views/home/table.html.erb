@@ -2,19 +2,21 @@
 <md-content id="FinanceStats" class="md-padding" layout="row" layout-align="center start" ng-controller="TableController as tc">
   <div class="tableSection" layout="column" layout-align="start start">
 
-    <div class="md-toolbar-tools">
-      <form ng-submit="" layout="row" layout-align="start start" flex>
-          <i class="material-icons searchlbl">search</i>
-          <md-input-container> 
+
+    <div class="md-toolbar-tools" class="fullWidth">
+      <h3 ng-hide="tc.showSearch">Transaction History</h3>
+      <i  ng-show="tc.showSearch"class="material-icons">search</i>
+      <div ng-submit="" layout="row" layout-align="start start" flex>
+          <md-input-container ng-show="tc.showSearch"> 
               <label>Search</label>
               <input ng-model="inputSearch" type="text">
           </md-input-container>
-          <span ng-if="" ng-click="" class="pointer search-bar">Back</span>
-      </form>
+      </div>
 
       <span flex></span>
 
-      <md-button  ng-click="fc.selectView(7)">Import CSV</md-button>
+      <i ng-click="tc.searchToggle()" class="material-icons">filter_list</i>
+      <i ng-click="fc.selectView(7)" class="material-icons">add</i>
     </div>
 
       <md-data-table
