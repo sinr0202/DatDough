@@ -1,35 +1,40 @@
-<h2>Edit User</h2>
+<md-content id="Settings" layout="column" layout-align="center center">
+  
+  <h2>Profile Change</h2>
 
-<form name="userSettings" novalidate>  
-  <div>
-    <label>Email</label><br />
-    <input autofocus="autofocus" class="form-control" type="email" value="test@example.com" name="user[email]" id="user_email" />
-  </div>
+  <form class="profileChange" novalidate>
 
+    <md-input-container class="fullWidth">
+        <label>Email</label>
+        <input ng-model="email" type="email" class="md-input ng-touched" required>
+    </md-input-container>
 
-  <div>
-    <label>Password</label><i>(leave blank if you don't want to change it)</i><br />
-    <input autocomplete="off" class="form-control" type="password" name="user[password]" id="user_password" />
-  </div>
+    <md-input-container class="fullWidth">
+        <label>New Password</label>
+        <input ng-model="new_password" type="password" class="md-input ng-touched" required>
+    </md-input-container>
 
-  <div>
-    <label>Password confirmation</label><br />
-    <input autocomplete="off" class="form-control" type="password" name="user[password_confirmation]" id="user_password_confirmation" />
-  </div>
+    <md-input-container class="fullWidth">
+        <label>Password Confirmation</label>
+        <input ng-model="confirm_password" type="password" class="md-input ng-touched" required>
+    </md-input-container>
 
-  <div>
-    <label>Current password</label> <i>(we need your current password to confirm your changes)</i><br />
-    <input autocomplete="off" class="form-control" type="password" name="user[current_password]" id="user_current_password" />
-  </div>
+    <md-input-container class="fullWidth">
+        <label>Previous Password</label>
+        <input ng-model="prev_password" type="password" class="md-input ng-touched" required>
+    </md-input-container>
 
-  <div class="actions form-group">
-    <input type="submit" name="commit" value="Update" class="btn btn-default" />
-  </div>
-</form>
-<h3>Import CSV</h3>
+    <div layout="row" layout-align="end center">
+      <md-button>Update</md-button>
+    </div>
+  </form>
 
-<button ng-click="fc.selectView(7)">IMPORT</button>
+  <h3>Account Deactivation</h3>
 
-<h3>Cancel my account</h3>
+  <form class="button_to" method="post" action="/users">
+    <input type="hidden" name="_method" value="delete"/>
+    <input data-confirm="Are you sure?" class="md-button btn-danger" type="submit" value="Cancel my account" />
+    <input type="hidden" name="authenticity_token" value="wMgbrz6vqDQSW4E3/gwQhy/LeyFj2Qv/BhSD1KqAAe6ZB3DqI77NtVJuSquP4NYNrK+0HDSF+mxmRhsbkEKVvA==" />
+  </form>
 
-<p>All your data will be lost. <form class="button_to" method="post" action="/users"><input type="hidden" name="_method" value="delete" /><input data-confirm="Are you sure?" class="btn btn-danger" type="submit" value="Cancel my account" /><input type="hidden" name="authenticity_token" value="wMgbrz6vqDQSW4E3/gwQhy/LeyFj2Qv/BhSD1KqAAe6ZB3DqI77NtVJuSquP4NYNrK+0HDSF+mxmRhsbkEKVvA==" /></form></p>
+</md-content>

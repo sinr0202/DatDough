@@ -1,7 +1,8 @@
 
 window.App = angular.module('DatDoughApp', 
 	['ngMaterial', 
-	'Devise', 
+	'Devise',
+	'mdDataTable',
 	'rails',
 	'ngFileUpload'])
 	.config(function(AuthProvider, AuthInterceptProvider) {

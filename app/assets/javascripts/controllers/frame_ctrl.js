@@ -20,21 +20,21 @@ App.controller('FrameController', ['Auth', '$scope',
                     {name: 'settings', url: 'settings', signin: true},
                     {name: 'import', url: 'import', signin: true}];
     vm.template = templates[0].url;
-    vm.isSignedIn = false
+    vm.isSignedIn = false;
 
     Auth.currentUser()
     .then(function(user){
         vm.isSignedIn = Auth.isAuthenticated();
     }, function(error) {
-        console.log('not authenticated yet')
+        console.log('not authenticated yet');
     });
 
     vm.selectView = function(index){
         if (vm.isSignedIn != templates[index].signin){
             if(vm.isSignedIn){
-                index = 3
+                index = 3;
             } else {
-                index = 0
+                index = 0;
             }
         }
         vm.template = templates[index].url;
@@ -47,31 +47,27 @@ App.controller('FrameController', ['Auth', '$scope',
             }
         };
         Auth.logout(config).then(function(oldUser) {
-            console.log('sign out successful')
             alert("you're signed out now.");
         }, function(error) {
-            console.log('sign out unsuccessful')
-            console.log(error)
+            alert("an error has occurred when signing out")
+            console.log(error);
         });
     }
 
     $scope.$on('devise:login', function(event, args){
-        console.log('signed in, showing dashboard')
-        vm.isSignedIn = true
-        vm.selectView(3)
-    })
+        vm.isSignedIn = true;
+        vm.selectView(3);
+    });
 
     $scope.$on('devise:new-registration', function(event, args){
-        console.log('signed up, showing dashboard')
-        vm.isSignedIn = true
-        vm.selectView(3)
-    })
+        vm.isSignedIn = true;
+        vm.selectView(3);
+    });
 
     $scope.$on('devise:logout', function(event, args){
-        console.log('signed out, showing welcome')
-        vm.isSignedIn = false
-        vm.selectView(0)
-    })
+        vm.isSignedIn = false;
+        vm.selectView(0);
+    });
 
 
 

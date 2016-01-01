@@ -10,29 +10,29 @@
 
             <div class="icon-container" layout="row" layout-align="end center">
                 <div ng-show="fc.isSignedIn" layout="row">
-                    <div class="SettingsBtn" ng-click="fc.selectView(6)" layout="row" layout-align="center center">
+                    <div class="toolbarBtns" ng-click="fc.selectView(6)" layout="row" layout-align="center center">
                         <i title="Settings" class="material-icons">settings</i>
                         <span>Settings</span>
                     </div>
-                    <div class="TableBtn" ng-click="fc.selectView(4)" layout="row" layout-align="center center">
-                        <i title="Table" class="material-icons">assessment</i>
+                    <div class="toolbarBtns" ng-click="fc.selectView(4)" layout="row" layout-align="center center">
+                        <i title="Table" class="material-icons">assignment</i>
                         <span>Table</span>
                     </div>
-                    <div class="GraphBtn" ng-click="fc.selectView(5)" layout="row" layout-align="center center">
-                        <i title="Graph" class="material-icons">assessment</i>
+                    <div class="toolbarBtns" ng-click="fc.selectView(5)" layout="row" layout-align="center center">
+                        <i title="Graph" class="material-icons">equalizer</i>
                         <span>Graph</span>
                     </div>
-                    <div class="signOufctn" ng-click="fc.signOut()" layout="row" layout-align="center center">
+                    <div class="toolbarBtns" ng-click="fc.signOut()" layout="row" layout-align="center center">
                         <i title="Sign Out" class="material-icons">exit_to_app</i>
                         <span>Sign Out</span>
                     </div>
                 </div>
                 <div ng-hide="fc.isSignedIn" layout="row">
-                    <div class="signUpBtn" ng-click="fc.selectView(2)" layout="row" layout-align="center center">
+                    <div class="toolbarBtns" ng-click="fc.selectView(2)" layout="row" layout-align="center center">
                         <i title="Sign Up" class="material-icons">create</i>
                         <span>Sign Up</span>
                     </div>
-                    <div class="signInBtn" ng-click="fc.selectView(1)" layout="row" layout-align="center center">
+                    <div class="toolbarBtns" ng-click="fc.selectView(1)" layout="row" layout-align="center center">
                         <i title="Sign In" class="material-icons">exit_to_app</i>
                         <span>Sign In</span>
                     </div>
@@ -42,5 +42,5 @@
         </div>
     </md-toolbar>
     <!-- Content -->
-    <div flex="90" ng-include="fc.template" fullheight></div>
+    <div flex="90" id="mainFrame" ng-include="fc.template" fullheight></div>
 </body>

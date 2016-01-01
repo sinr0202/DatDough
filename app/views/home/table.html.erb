@@ -1,4 +1,70 @@
-<table ng-controller="TableController as tc">
+<!--User's Financial Information-->
+<md-content id="FinanceStats" class="md-padding" layout="row" layout-align="center start" ng-controller="TableController as tc">
+  <div class="tableSection" layout="column" layout-align="start start">
+
+    <div class="md-toolbar-tools">
+      <form ng-submit="" layout="row" layout-align="start start" flex>
+          <i class="material-icons searchlbl">search</i>
+          <md-input-container> 
+              <label>Search</label>
+              <input ng-model="inputSearch" type="text">
+          </md-input-container>
+          <span ng-if="" ng-click="" class="pointer search-bar">Back</span>
+      </form>
+
+      <span flex></span>
+
+      <md-button  ng-click="fc.selectView(7)">Import CSV</md-button>
+    </div>
+
+      <md-data-table
+          table-card="{visible: true, title: 'Finance History', actionIcons: true }"
+          selectable-rows="tableIsSelectable"
+          sortable-columns="tableIsSortable"
+          class="tableOfHistory">
+          <md-data-table-header-row>
+              <md-data-table-column sortable-rows-default>
+                  Date
+              </md-data-table-column>
+
+              <md-data-table-column sortable-rows-default>
+                  Amount
+              </md-data-table-column>
+
+              <md-data-table-column sortable-rows-default>
+                  Category
+              </md-data-table-column>
+
+              <md-data-table-column sortable-rows-default>
+                  Description
+              </md-data-table-column>
+
+              <md-data-table-column sortable-rows-default>
+                  Transaction Type
+              </md-data-table-column>
+
+              <md-data-table-column sortable-rows-default>
+                  Payment Method
+              </md-data-table-column>
+
+              <md-data-table-column sortable-rows-default>
+                  Edit
+              </md-data-table-column>
+
+          </md-data-table-header-row>
+
+          <md-data-table-row ng-repeat="expense in tc.expenses | orderBy: ['date','created_at']:true track by $index">
+              <md-data-table-cell>{{expense.date | date: 'MMM/d'}}</md-data-table-cell>
+              <md-data-table-cell>{{expense.amount | currency}}</md-data-table-cell>
+              <md-data-table-cell>{{expense.category}}</md-data-table-cell>
+              <md-data-table-cell>{{expense.description | limitTo: 15 }}</md-data-table-cell>
+              <md-data-table-cell>{{expense.transaction_type}}</md-data-table-cell>
+              <md-data-table-cell>{{expense.payment_method}}</md-data-table-cell>
+          </md-data-table-row>
+      </md-data-table>
+  </div>
+<md-content>
+<!-- <table ng-controller="TableController as tc">
   <thead>
     <tr>
       <th>Date</th>
@@ -21,4 +87,4 @@
       <td><p ng-click="tc.edit($index)">**</a></td>
     </tr>
   </tbody>
-</table>
+</table> -->

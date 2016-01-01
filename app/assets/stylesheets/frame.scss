@@ -18,21 +18,14 @@
 		color: rgba(255,255,255,0.7);
 		font-size: 15px;
 
-		.signUpBtn {
-			cursor: pointer;
+		.toolbarBtns {
 			margin-right: 10px;
-
-			&:hover {
-				color: rgba(255,255,255,1);
-			}
-		}
-
-		.signInBtn {
 			cursor: pointer;
 
 			&:hover {
 				color: rgba(255,255,255,1);
 			}
+
 		}
 
 	}
