@@ -18,6 +18,7 @@
   <p ng-show="ic.processed && !ic.uploading">Uploading Complete!</p>
   <p ng-show="ic.loading">Loading..</p>
   <p ng-show="ic.processed && !ic.loading">Loading Complete!</p>
+  <p ng-show="ic.error">Error: {{ic.error}}</p>
   <button ng-click="ic.submit()">Submit</button>
 </form>
 
