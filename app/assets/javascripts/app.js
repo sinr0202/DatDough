@@ -1,10 +1,10 @@
 
 window.App = angular.module('DatDoughApp', 
-	['ngMaterial', 
-	'Devise',
-	'mdDataTable',
-	'rails',
-	'ngFileUpload'])
+	['ngMaterial',
+	 //'mdDataTable',
+	 'Devise',
+	 'rails',
+	 'ngFileUpload'])
 	.config(function(AuthProvider, AuthInterceptProvider) {
 			// Configure Auth service with AuthProvider
 			// blank to use default

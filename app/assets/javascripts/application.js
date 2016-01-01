@@ -20,7 +20,6 @@
 //= require angular-material/angular-material.min
 //= require angularjs/rails/resource
 //= require ng-file-upload/ng-file-upload.min
-//= require bower_components/mdDataTable
 //= require d3.v3
 //= require nv.d3
 //= require app
