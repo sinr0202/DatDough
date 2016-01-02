@@ -80,3 +80,4 @@ pickle-email-*.html
 
 ## User Defined
 bower_components/
+vendor/assets/bower_components/

@@ -20,6 +20,11 @@
 //= require angular-material/angular-material.min
 //= require angularjs/rails/resource
 //= require ng-file-upload/ng-file-upload.min
+//= require lodash/lodash.min
+//= require angular-sanitize/angular-sanitize.min
+//= require angular-material-icons/angular-material-icons.min
+//= require mdDataTable/dist/md-data-table-templates
+//= require mdDataTable/dist/md-data-table
 //= require d3.v3
 //= require nv.d3
 //= require app
