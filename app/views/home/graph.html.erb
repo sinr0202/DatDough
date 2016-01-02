@@ -1,3 +1,6 @@
 <div ng-controller="GraphController as gc">
-	<p>graph yo</p>
+	<p>Income</p>
+	<nvd3 options="gc.categoryOption" data="gc.income.data"></nvd3>
+	<p>Expense</p>
+	<nvd3 options="gc.categoryOption" data="gc.expense.data"></nvd3>
 </div>

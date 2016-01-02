@@ -12,23 +12,28 @@ class StatsController < ApplicationController
     categories = Expense.categories
     category_hash.transform_keys!{ |val| categories.key(val) }
 
-    income_hash = {}
-    expense_hash = {}
+    income_arr = []
+    expense_arr = []
     category_hash.each do |category, val|
       if val > 0
-        income_hash[category.gsub(/_/, ' ').downcase.capitalize] = val
+        income_arr << {key: category.gsub(/_/, ' ').downcase.capitalize, y: val}
       else
-        expense_hash[category.gsub(/_/, ' ').downcase.capitalize] = val.abs
+        expense_arr << {key: category.gsub(/_/, ' ').downcase.capitalize, y: val}
       end
     end
 
-    result = {income: income_hash, expense: expense_hash}
+    result = {income: income_arr, expense: expense_arr}
 
   	render json: result, status: :ok
   end
 
   def monthly
+    categories = Expense.categories
     expenses = current_user.expenses
+    if not (params[:category].nil? or params[:category].empty?) and categories.has_key?(params[:category])
+      puts 'hero'
+      expenses = expenses.where(category: categories[params[:category]])
+    end
     income_hash = {}
     expense_hash = {}
 

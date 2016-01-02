@@ -10,6 +10,8 @@ App.controller('GraphController', ['$http',
 	function($http){
 
 	var vm = this;
+	vm.income = {}
+	vm.expense = {}
 
 	$http.get('/stats/daily')
 	.success(function(data){
@@ -21,7 +23,30 @@ App.controller('GraphController', ['$http',
 
 	$http.get('/stats/category')
 	.success(function(data){
-		vm.category = data;
+		vm.income.data = data.income;
+		vm.expense.data = data.expense;
+		vm.categoryOption = {
+            chart: {
+                type: 'pieChart',
+                height: 500,
+                x: function(d){return d.key;},
+                y: function(d){return d.y;},
+                showLabels: false,
+                duration: 500,
+                labelThreshold: 0.01,
+                labelSunbeamLayout: true,
+                legend: {
+                    margin: {
+                        top: 5,
+                        right: 35,
+                        bottom: 5,
+                        left: 0
+                    }
+                }
+            }
+        };
+
+
 		console.log('category stat retrieval successful');
 	}).error(function(){
 		console.log('category stat retrieval unsuccessful');

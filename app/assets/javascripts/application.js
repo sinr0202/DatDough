@@ -25,7 +25,8 @@
 //= require angular-material-icons/angular-material-icons.min
 //= require mdDataTable/dist/md-data-table-templates
 //= require mdDataTable/dist/md-data-table
-//= require d3.v3
-//= require nv.d3
+//= require d3/d3.min
+//= require nvd3/build/nv.d3.min
+//= require angular-nvd3/dist/angular-nvd3.min
 //= require app
 //= require_tree .

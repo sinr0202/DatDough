@@ -7,6 +7,7 @@
     "angular-material": "^1.0.1",
     "angular-devise": "^1.1",
     "ng-file-upload": "^11.0.0",
-    "mdDataTable": "^1.1.1"
+    "mdDataTable": "^1.1.1",
+    "angular-nvd3": "^1.0.5"
   }
 }

@@ -4,7 +4,8 @@ window.App = angular.module('DatDoughApp',
 	'mdDataTable',
 	'Devise',
 	'rails',
-	'ngFileUpload'])
+	'ngFileUpload',
+	'nvd3'])
 	.config(function(AuthProvider, AuthInterceptProvider) {
 			// Configure Auth service with AuthProvider
 			// blank to use default
