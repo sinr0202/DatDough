@@ -2,7 +2,6 @@
 <md-content id="FinanceStats" class="md-padding" layout="row" layout-align="center start" ng-controller="TableController as tc">
   <div class="tableSection" layout="column" layout-align="start start">
 
-
     <div class="md-toolbar-tools" class="fullWidth">
       <h3 ng-hide="tc.showSearch">Transaction History</h3>
       <i  ng-show="tc.showSearch"class="material-icons">search</i>
@@ -19,74 +18,42 @@
       <i ng-click="fc.selectView(7)" class="material-icons">add</i>
     </div>
 
-      <md-data-table
-          table-card="{visible: true, title: 'Finance History', actionIcons: true }"
-          selectable-rows="tableIsSelectable"
-          sortable-columns="tableIsSortable"
-          class="tableOfHistory">
-          <md-data-table-header-row>
-              <md-data-table-column sortable-rows-default>
+    <mdt-table sortable-columns="true" class="tableOfHistory">
+          <mdt-header-row>
+              <mdt-column sortable-rows-default>
                   Date
-              </md-data-table-column>
+              </mdt-column>
 
-              <md-data-table-column sortable-rows-default>
+              <mdt-column sortable-rows-default>
                   Amount
-              </md-data-table-column>
+              </mdt-column>
 
-              <md-data-table-column sortable-rows-default>
+              <mdt-column sortable-rows-default>
                   Category
-              </md-data-table-column>
+              </mdt-column>
 
-              <md-data-table-column sortable-rows-default>
+              <mdt-column sortable-rows-default>
                   Description
-              </md-data-table-column>
+              </mdt-column>
 
-              <md-data-table-column sortable-rows-default>
+              <mdt-column sortable-rows-default>
                   Transaction Type
-              </md-data-table-column>
+              </mdt-column>
 
-              <md-data-table-column sortable-rows-default>
+              <mdt-column sortable-rows-default>
                   Payment Method
-              </md-data-table-column>
+              </mdt-column>
 
-              <md-data-table-column sortable-rows-default>
-                  Edit
-              </md-data-table-column>
+          </mdt-header-row>
 
-          </md-data-table-header-row>
-
-          <md-data-table-row ng-repeat="expense in tc.expenses | orderBy: ['date','created_at']:true track by $index">
-              <md-data-table-cell>{{expense.date | date: 'MMM/d'}}</md-data-table-cell>
-              <md-data-table-cell>{{expense.amount | currency}}</md-data-table-cell>
-              <md-data-table-cell>{{expense.category}}</md-data-table-cell>
-              <md-data-table-cell>{{expense.description | limitTo: 15 }}</md-data-table-cell>
-              <md-data-table-cell>{{expense.transaction_type}}</md-data-table-cell>
-              <md-data-table-cell>{{expense.payment_method}}</md-data-table-cell>
-          </md-data-table-row>
-      </md-data-table>
+          <mdt-row ng-repeat="expense in tc.expenses | orderBy: ['date','created_at']:true track by $index">
+              <mdt-cell>{{expense.date | date: 'MM/dd/yyyy'}}</mdt-cell>
+              <mdt-cell>{{expense.amount | currency}}</mdt-cell>
+              <mdt-cell>{{expense.category}}</mdt-cell>
+              <mdt-cell>{{expense.description | limitTo: 15 }}</mdt-cell>
+              <mdt-cell>{{expense.transaction_type}}</mdt-cell>
+              <mdt-cell>{{expense.payment_method}}</mdt-cell>
+          </mdt-row>
+      </mdt-table>
   </div>
 <md-content>
-<!-- <table ng-controller="TableController as tc">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>&nbsp;&nbsp;&nbsp;&nbsp;Amount</th>
-      <th>Category</th>
-      <th>Description</th>
-      <th>Transaction type</th>
-      <th>Payment method</th>
-      <th>Edit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="expense in tc.expenses | orderBy: ['date','created_at']:true track by $index">
-      <td>{{expense.date | date: 'MMM/d'}}</td>
-      <td>{{expense.amount | currency}}</td>
-      <td>{{expense.category}}</td>
-      <td>{{expense.description | limitTo: 15 }}</a></td>
-      <td>{{expense.transaction_type}}</td>
-      <td>{{expense.payment_method}}</td>
-      <td><p ng-click="tc.edit($index)">**</a></td>
-    </tr>
-  </tbody>
-</table> -->

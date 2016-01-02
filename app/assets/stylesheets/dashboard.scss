@@ -14,12 +14,17 @@
 		}
 	}
 
+	.md-toolbar-tools {
+		padding: 0;
+	}
+
 	.tableSection {
 		width: 80%;
 	}
 
 	.tableOfHistory{
 		width: 100%;
+		max-height: 60%;
 	}
 
 }
