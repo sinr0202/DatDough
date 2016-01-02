@@ -79,4 +79,4 @@ pickle-email-*.html
 .powenv
 
 ## User Defined
-/bower_components
+bower_components/
