@@ -10,54 +10,56 @@ App.controller('GraphController', ['$http',
 	function($http){
 
 	var vm = this;
-	vm.income = {}
 	vm.expense = {}
 
-	$http.get('/stats/daily')
+	$http.get('/graph/bar')
 	.success(function(data){
-		vm.daily = data;
-		console.log('daily stat retrieval successful');
-	}).error(function(){
-		console.log('daily stat retrieval unsuccessful');
-	})
-
-	$http.get('/stats/category')
-	.success(function(data){
-		vm.income.data = data.income;
-		vm.expense.data = data.expense;
-		vm.categoryOption = {
-            chart: {
-                type: 'pieChart',
-                height: 500,
-                x: function(d){return d.key;},
-                y: function(d){return d.y;},
-                showLabels: false,
+		console.log('daily expense stat retrival successful');
+		vm.barData = [{
+			key: "stream0",
+			values: data.map(function(data){
+				return {
+					key: "Stream0",
+					series: 0,
+					size: -data[1],
+					x: data[0],
+					y: -data[1],
+					y0: data[0],
+					y1: -data[1]
+				}
+			})
+		}];
+		vm.barOptions = {
+			chart: {
+                type: 'multiBarChart',
+                height: 450,
+                margin : {
+                    top: 20,
+                    right: 20,
+                    bottom: 45,
+                    left: 45
+                },
+                clipEdge: true,
+                //staggerLabels: true,
                 duration: 500,
-                labelThreshold: 0.01,
-                labelSunbeamLayout: true,
-                legend: {
-                    margin: {
-                        top: 5,
-                        right: 35,
-                        bottom: 5,
-                        left: 0
+                stacked: true,
+                xAxis: {
+                    axisLabel: 'Date',
+                    showMaxMin: false,
+                    tickFormat: function(d){
+                        return d3.time.format('%x')(new Date(d));
+                    }
+                },
+                yAxis: {
+                    axisLabel: 'Dollars Spent',
+                    axisLabelDistance: -20,
+                    tickFormat: function(d){
+                        return d3.format(',.1f')(d);
                     }
                 }
             }
-        };
-
-
-		console.log('category stat retrieval successful');
+		};
 	}).error(function(){
-		console.log('category stat retrieval unsuccessful');
-	})
-
-	$http.get('/stats/monthly')
-	.success(function(data){
-		vm.monthly = data;
-		console.log('monthly stat retrieval successful');
-	}).error(function(){
-		console.log('monthly stat retrieval unsuccessful');
-	})
-
+		console.log('daily expense stat retrival unsuccessful');
+	});
 }])

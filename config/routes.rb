@@ -10,17 +10,26 @@ Rails.application.routes.draw do
     get '/table', to: 'home#table', as: 'table'
     get '/graph', to: 'home#graph', as: 'graph'
     get '/settings', to: redirect('/users/edit')
+    # get '/about', to: 'home#about', as: 'about'
+    # get '/contact', to: 'home#contact', as: 'contact'
+    # get '/donation', to: 'home#donation', as: 'donation'
     
     # csv import
     get '/import', to: 'import#new', as: 'import'
     post '/import', to: 'import#csv', as: 'import_csv'
 
     # statistics
-    scope '/stats' do
-      get '/category', to: 'stats#category'
-      get '/daily', to: 'stats#daily'
-      get '/monthly', to: 'stats#monthly'
-      get '/most', to: 'stats#most'
+    # scope '/stats' do
+    #   get '/category', to: 'stats#category'
+    #   get '/daily', to: 'stats#daily'
+    #   get '/monthly', to: 'stats#monthly'
+    #   get '/most', to: 'stats#most'
+    # end
+
+    # graph
+    scope '/graph' do
+      get '/bar', to: 'graph#bar', as: 'bar'
+      get '/pie', to: 'graph#pie', as: 'pie'
     end
   end 
 
@@ -35,9 +44,6 @@ Rails.application.routes.draw do
     get '/paymethods', to: 'api#paymethods', as: 'paymethods'
   end
 
-  # get '/about', to: 'home#about', as: 'about'
-  # get '/contact', to: 'home#contact', as: 'contact'
-  # get '/donation', to: 'home#donation', as: 'donation'
   
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
   resources :expenses
