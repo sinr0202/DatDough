@@ -1,14 +1,18 @@
 //Graph CSS
 
-.graphTitles {
-	display: block;
-	text-align: center;
-}
+#GraphSection {
 
-.graphs {
-	padding: 20px;
-}
+	.graphTitles {
+		display: block;
+		text-align: center;
+	}
 
-.expenseDate {
-	margin-left: 10%;
+	.graphs {
+		padding: 20px;
+	}
+
+	.leftAlign {
+		margin-left: 10%;
+	}
+
 }

@@ -12,9 +12,20 @@ App.controller('GraphController',
 	var vm = this;
 	vm.barData = [];
 	vm.pieData = [];
-	vm.endDate = new Date()
-	vm.startDate = new Date()
-	vm.startDate.setDate(vm.startDate.getDate()-30)
+	vm.endDate = new Date();
+	vm.startDate = new Date();
+	vm.startDate.setDate(vm.startDate.getDate()-30);
+	vm.daily = true;
+
+	vm.graphSwitch = function(type){
+		
+		if (type === 'daily'){
+			vm.daily = true;
+		}
+		else if (type === 'category'){
+			vm.daily = false;
+		}
+	};
 
 	vm.barOptions = {
 		chart: {
@@ -49,6 +60,7 @@ App.controller('GraphController',
 		chart: {
 			type: 'pieChart',
 			height: 500,
+			width: 900,
 			x: function(d){return d.key;},
 			y: function(d){return d.y;},
 			showLabels: true,
@@ -57,10 +69,10 @@ App.controller('GraphController',
 			labelSunbeamLayout: true,
 			legend: {
 				margin: {
-				top: 5,
-				right: 35,
-				bottom: 5,
-				left: 0
+				top: 20,
+				right: 100,
+				bottom: 45,
+				left: 100
 				}
 			}
 		}

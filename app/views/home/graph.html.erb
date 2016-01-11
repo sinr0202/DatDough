@@ -1,16 +1,22 @@
-<div ng-controller="GraphController as gc" id="popupContainer">
+<div ng-controller="GraphController as gc" id="GraphSection">
 	
-	<div class="expenseDate" layout="row" layout-align="start center">
+	<div class="leftAlign" layout="row" layout-align="start center">
 		<h2>Expenses from {{gc.startDate | date:'MMM dd yyyy'}} ~ {{gc.endDate | date:'MMM dd yyyy'}}</h2>
 		<md-button class="borderBtn" ng-click="gc.showDialog($event)">DATE</md-button>
 	</div>
 
-	<div class="graphs">
+	<div class="leftAlign">
+		<md-button class="borderBtn" ng-click="gc.graphSwitch('daily')">Daily</md-button>
+		<span> | </span>
+		<md-button class="borderBtn" ng-click="gc.graphSwitch('category')">Category</md-button>
+	</div>
+
+	<div class="graphs" ng-show="gc.daily">
 		<span class="graphTitles">Daily Expenses</span>
 		<nvd3 options="gc.barOptions" data="gc.barData"></nvd3>
 	</div>
 
-	<div class="graphs">
+	<div class="graphs" ng-show="!gc.daily">
 		<span class="graphTitles">Category Expenses</span>
 		<nvd3 options="gc.pieOptions" data="gc.pieData"></nvd3>
 	</div>
