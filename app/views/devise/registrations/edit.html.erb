@@ -25,16 +25,18 @@
     </md-input-container>
 
     <div layout="row" layout-align="end center">
-      <md-button>Update</md-button>
+      <md-button class="borderBtn">Update</md-button>
     </div>
   </form>
 
-  <h3>Account Deactivation</h3>
+  <div class="accountDeact" layout="column" layout-align="center center">
+    <h3>Account Deactivation</h3>
 
-  <form class="button_to" method="post" action="/users">
-    <input type="hidden" name="_method" value="delete"/>
-    <input data-confirm="Are you sure?" class="md-button btn-danger" type="submit" value="Deactivate Account" />
-    <input type="hidden" name="authenticity_token" value="wMgbrz6vqDQSW4E3/gwQhy/LeyFj2Qv/BhSD1KqAAe6ZB3DqI77NtVJuSquP4NYNrK+0HDSF+mxmRhsbkEKVvA==" />
-  </form>
+    <form class="button_to" method="post" action="/users">
+      <input type="hidden" name="_method" value="delete"/>
+      <md-button data-confirm="Are you sure?" class="errorBtn" type="submit" value="Deactivate Account">Deactivate Account</md-button>
+      <input type="hidden" name="authenticity_token" value="wMgbrz6vqDQSW4E3/gwQhy/LeyFj2Qv/BhSD1KqAAe6ZB3DqI77NtVJuSquP4NYNrK+0HDSF+mxmRhsbkEKVvA==" />
+    </form>
+  </div>
 
 </md-content>

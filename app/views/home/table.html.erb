@@ -1,6 +1,6 @@
 <!--User's Financial Information-->
 <md-content id="FinanceStats" class="md-padding" layout="row" layout-align="center start" ng-controller="TableController as tc">
-  <div class="tableSection" layout="column" layout-align="start start">
+  <div class="tableSection" layout="column" layout-align="center center">
 
     <div class="md-toolbar-tools" class="fullWidth">
       <h3 ng-hide="tc.showSearch">Transaction History</h3>
@@ -17,7 +17,9 @@
       <i ng-click="tc.searchToggle()" class="material-icons">filter_list</i>
       <i ng-click="fc.selectView(7)" class="material-icons">add</i>
     </div>
+
     <h4 ng-hide="tc.expenses.length">No Transactions</h1>
+
     <mdt-table sortable-columns="true" ng-show="tc.expenses.length" class="tableOfHistory" >
       <mdt-header-row>
         <mdt-column sortable-rows-default>Date</mdt-column>
@@ -37,6 +39,8 @@
         <mdt-cell>{{expense.paymentMethod}}</mdt-cell>
       </mdt-row>
     </mdt-table>
-    <%= image_tag "hex-loader.gif", alt: "Loading...", 'ng-show' => 'tc.loading' %>
+
+    <md-progress-circular ng-show="tc.loading" md-mode="indeterminate"></md-progress-circular>
+
   </div>
 <md-content>

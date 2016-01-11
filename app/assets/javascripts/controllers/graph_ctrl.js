@@ -22,23 +22,22 @@ App.controller('GraphController',
 			height: 450,
 			margin : {
 				top: 20,
-				right: 20,
+				right: 100,
 				bottom: 45,
-				left: 45
+				left: 100
 			},
 			clipEdge: true,
 			duration: 500,
 			stacked: true,
 			xAxis: {
-				axisLabel: 'Date',
+				axisLabel: 'Date (MM/dd/yyyy)',
 				showMaxMin: false,
 				tickFormat: function(d){
 					return d3.time.format('%x')(new Date(d));
 				}
 			},
 			yAxis: {
-				axisLabel: 'Dollars',
-				axisLabelDistance: -20,
+				axisLabel: 'Dollars ($)',
 				tickFormat: function(d){
 					return d3.format(',.1f')(d);
 				}
