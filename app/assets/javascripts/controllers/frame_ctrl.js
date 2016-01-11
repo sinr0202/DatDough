@@ -54,6 +54,10 @@ App.controller('FrameController', ['Auth', '$scope',
         });
     }
 
+    vm.scroll = function(){
+        $scope.$broadcast('scrolling');
+    }
+
     $scope.$on('devise:login', function(event, args){
         vm.isSignedIn = true;
         vm.selectView(3);

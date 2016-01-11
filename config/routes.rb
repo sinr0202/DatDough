@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'home#dashboard', as: 'dashboard'
     get '/table', to: 'home#table', as: 'table'
     get '/graph', to: 'home#graph', as: 'graph'
+    get '/date', to: 'home#date', as: 'date'
     get '/settings', to: redirect('/users/edit')
     # get '/about', to: 'home#about', as: 'about'
     # get '/contact', to: 'home#contact', as: 'contact'
@@ -19,12 +20,9 @@ Rails.application.routes.draw do
     post '/import', to: 'import#csv', as: 'import_csv'
 
     # statistics
-    # scope '/stats' do
-    #   get '/category', to: 'stats#category'
-    #   get '/daily', to: 'stats#daily'
-    #   get '/monthly', to: 'stats#monthly'
-    #   get '/most', to: 'stats#most'
-    # end
+    scope '/stats' do
+      get '/most', to: 'stats#most', as: 'most'
+    end
 
     # graph
     scope '/graph' do

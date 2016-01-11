@@ -1,5 +1,9 @@
-<div ng-controller="GraphController as gc">
-	<p>Expenses</p>
+<div ng-controller="GraphController as gc" id="popupContainer">
+	<button ng-click="gc.showDialog($event)">DATE</button>
+	<h2>Expenses from {{gc.startDate | date:'MMM/dd'}} ~ {{gc.endDate | date:'MMM/dd'}}</h2>
+	<p>Daily Expenses</p>
 	<nvd3 options="gc.barOptions" data="gc.barData"></nvd3>
 
+	<p>Category Expenses</p>
+	<nvd3 options="gc.pieOptions" data="gc.pieData"></nvd3>
 </div>

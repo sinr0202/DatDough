@@ -3,7 +3,7 @@ class GraphController < ApplicationController
 	def bar
 		start_date = params[:start_date]
 		end_date = params[:end_date]
-
+		
 		expenses = filter_dates(start_date,end_date)
 					.where(transaction_type: 1) 		#expense only
 					.group(:date).order(date: :asc).sum(:amount)
@@ -12,7 +12,15 @@ class GraphController < ApplicationController
 	end
 
 	def pie
-		render json: {}, status: :ok
+		start_date = params[:start_date]
+		end_date = params[:end_date]
+
+		expenses = filter_dates(start_date,end_date)
+					.where(transaction_type: 1) 		#expense only
+					.group(:category).sum(:amount)
+		categories = Expense.categories
+		expenses.transform_keys!{ |val| categories.key(val) }
+		render json: expenses, status: :ok
 	end
 
 
