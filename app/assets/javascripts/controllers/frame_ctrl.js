@@ -19,6 +19,7 @@ App.controller('FrameController', ['Auth', '$scope',
                     {name: 'graph', url: 'graph', signin: true},
                     {name: 'settings', url: 'settings', signin: true},
                     {name: 'import', url: 'import', signin: true}];
+                    
     vm.template = templates[0].url;
     vm.isSignedIn = false;
 
